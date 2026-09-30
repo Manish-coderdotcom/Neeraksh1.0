@@ -324,13 +324,13 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#D5E0E2]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1 rounded bg-[#D8E7EC] text-[#176B87]">
+            <span className="p-1 rounded bg-[#D8E7EC] text-[#009FE3]">
               <Layers className="w-4 h-4" />
             </span>
-            <h2 className="text-lg font-bold text-[#123B4A] font-['Plus_Jakarta_Sans']">
+            <h2 className="text-lg font-bold text-[#071B33] font-['Plus_Jakarta_Sans']">
               Subsurface temperature reconstruction & vertical structure
             </h2>
-            <span className="text-xs font-mono bg-[#EBF2F3] text-[#176B87] px-2 py-0.5 rounded border border-[#D5E0E2]">
+            <span className="text-xs font-mono bg-[#EBF2F3] text-[#009FE3] px-2 py-0.5 rounded border border-[#D5E0E2]">
               15 strata (0–1000 m)
             </span>
           </div>
@@ -341,13 +341,13 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
 
         {/* View toggles & controls */}
         <div className="flex items-center gap-2">
-          <div className="bg-[#F4F7F6] p-1 rounded-md border border-[#D5E0E2] flex items-center gap-1">
+          <div className="bg-[#F4F9FC] p-1 rounded-md border border-[#D5E0E2] flex items-center gap-1">
             <button
               onClick={() => setViewMode('volumetric3d')}
               className={`px-3 py-1 rounded text-xs font-medium transition cursor-pointer ${
                 viewMode === 'volumetric3d'
-                  ? 'bg-[#FFFFFF] text-[#123B4A] font-semibold border border-[#D5E0E2] shadow-2xs'
-                  : 'text-[#62757C] hover:text-[#17313B]'
+                  ? 'bg-[#FFFFFF] text-[#071B33] font-semibold border border-[#D5E0E2] shadow-2xs'
+                  : 'text-[#62757C] hover:text-[#071B33]'
               }`}
             >
               3D volumetric view
@@ -356,8 +356,8 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
               onClick={() => setViewMode('contour2d')}
               className={`px-3 py-1 rounded text-xs font-medium transition cursor-pointer ${
                 viewMode === 'contour2d'
-                  ? 'bg-[#FFFFFF] text-[#123B4A] font-semibold border border-[#D5E0E2] shadow-2xs'
-                  : 'text-[#62757C] hover:text-[#17313B]'
+                  ? 'bg-[#FFFFFF] text-[#071B33] font-semibold border border-[#D5E0E2] shadow-2xs'
+                  : 'text-[#62757C] hover:text-[#071B33]'
               }`}
             >
               2D layer map
@@ -369,7 +369,7 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
               <button
                 onClick={() => setAutoRotate(!autoRotate)}
                 className={`p-1.5 rounded-md border text-xs transition cursor-pointer ${
-                  autoRotate ? 'bg-[#DCEFEA] text-[#123B4A] border-[#2A8C82]/40' : 'bg-[#FFFFFF] text-[#62757C] border-[#D5E0E2]'
+                  autoRotate ? 'bg-[#DCEFEA] text-[#071B33] border-[#009FE3]/40' : 'bg-[#FFFFFF] text-[#62757C] border-[#D5E0E2]'
                 }`}
                 title="Toggle rotation"
               >
@@ -378,7 +378,7 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
               <button
                 onClick={() => setWireframeMode(!wireframeMode)}
                 className={`p-1.5 rounded-md border text-xs transition cursor-pointer ${
-                  wireframeMode ? 'bg-[#DCEFEA] text-[#123B4A] border-[#2A8C82]/40' : 'bg-[#FFFFFF] text-[#62757C] border-[#D5E0E2]'
+                  wireframeMode ? 'bg-[#DCEFEA] text-[#071B33] border-[#009FE3]/40' : 'bg-[#FFFFFF] text-[#62757C] border-[#D5E0E2]'
                 }`}
                 title="Toggle grid overlay"
               >
@@ -394,7 +394,7 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
         {/* Left Column: 15-Depth Selector Ladder */}
         <div className="lg:col-span-2 flex flex-col justify-between bg-[#F8FAFA] p-3 rounded-md border border-[#D5E0E2]">
           <div className="flex items-center justify-between pb-2 border-b border-[#D5E0E2]">
-            <span className="text-[11px] font-semibold text-[#123B4A] uppercase tracking-wider font-mono">Depth strata</span>
+            <span className="text-[11px] font-semibold text-[#071B33] uppercase tracking-wider font-mono">Depth strata</span>
             <span className="text-[10px] text-[#62757C]">15 levels</span>
           </div>
 
@@ -411,14 +411,14 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
                   onClick={() => setSelectedDepth(depth)}
                   className={`flex items-center justify-between px-2.5 py-1.5 rounded text-xs font-mono transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-[#176B87] text-white font-bold shadow-xs'
-                      : 'bg-[#FFFFFF] text-[#17313B] border border-[#D5E0E2] hover:bg-[#EBF2F3]'
+                      ? 'bg-[#009FE3] text-white font-bold shadow-xs'
+                      : 'bg-[#FFFFFF] text-[#071B33] border border-[#D5E0E2] hover:bg-[#EBF2F3]'
                   }`}
                 >
-                  <span className={isSelected ? 'text-white' : isMLD ? 'text-[#2A8C82] font-semibold' : isThermocline ? 'text-[#D99A3D] font-semibold' : 'text-[#62757C]'}>
+                  <span className={isSelected ? 'text-white' : isMLD ? 'text-[#009FE3] font-semibold' : isThermocline ? 'text-[#D99A3D] font-semibold' : 'text-[#62757C]'}>
                     {depth === 0 ? 'Surface' : `${depth}m`}
                   </span>
-                  <span className={`text-[11px] ${isSelected ? 'text-white font-bold' : 'text-[#17313B]'}`}>
+                  <span className={`text-[11px] ${isSelected ? 'text-white font-bold' : 'text-[#071B33]'}`}>
                     {pVal.toFixed(1)}°C
                   </span>
                 </button>
@@ -427,8 +427,8 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
           </div>
 
           <div className="pt-2 border-t border-[#D5E0E2] text-[10px] text-[#62757C] flex flex-col gap-1">
-            <span className="flex items-center gap-1.5 text-[#2A8C82]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#2A8C82]" /> Mixed layer: 0–{mld}m
+            <span className="flex items-center gap-1.5 text-[#009FE3]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#009FE3]" /> Mixed layer: 0–{mld}m
             </span>
             <span className="flex items-center gap-1.5 text-[#D99A3D]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D99A3D]" /> Thermocline: ~{thermoclineDepth}m
@@ -446,17 +446,17 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
             )}
 
             {/* Overlaid telemetry watermark HUD */}
-            <div className="absolute top-3 left-3 bg-[#FFFFFF]/90 backdrop-blur-xs border border-[#D5E0E2] rounded-md p-2.5 text-[11px] font-mono text-[#17313B] shadow-sm pointer-events-none">
-              <div className="text-[#176B87] font-bold mb-1 flex items-center gap-1">
+            <div className="absolute top-3 left-3 bg-[#FFFFFF]/90 backdrop-blur-xs border border-[#D5E0E2] rounded-md p-2.5 text-[11px] font-mono text-[#071B33] shadow-sm pointer-events-none">
+              <div className="text-[#009FE3] font-bold mb-1 flex items-center gap-1">
                 <Compass className="w-3.5 h-3.5" /> RECONSTRUCTED SLAB
               </div>
-              <div>Region: <span className="font-semibold text-[#123B4A]">{satelliteData?.region_name || 'Arabian Sea'}</span></div>
-              <div>Selected depth: <span className="font-bold text-[#2A8C82]">{selectedDepth} m</span></div>
+              <div>Region: <span className="font-semibold text-[#071B33]">{satelliteData?.region_name || 'Arabian Sea'}</span></div>
+              <div>Selected depth: <span className="font-bold text-[#009FE3]">{selectedDepth} m</span></div>
               <div className="text-[10px] text-[#62757C]">{satelliteData?.coordinates.lat.toFixed(1)}°N, {satelliteData?.coordinates.lon.toFixed(1)}°E</div>
             </div>
 
             {/* In-situ ARGO Float Pin Indicator */}
-            <div className="absolute bottom-3 right-3 bg-[#FFFFFF]/90 backdrop-blur-xs border border-[#D5E0E2] rounded-md p-2 text-[11px] font-mono text-[#123B4A] shadow-sm pointer-events-none">
+            <div className="absolute bottom-3 right-3 bg-[#FFFFFF]/90 backdrop-blur-xs border border-[#D5E0E2] rounded-md p-2 text-[11px] font-mono text-[#071B33] shadow-sm pointer-events-none">
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-[#D99A3D]" />
                 <span className="font-semibold">ARGO Float {argoData?.float_metadata.wmo_id || 'WMO-2902784'}</span>
@@ -469,11 +469,11 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
 
           {/* Interactive Depth Slider below canvas */}
           <div className="mt-3 bg-[#F8FAFA] p-3 rounded-md border border-[#D5E0E2] flex items-center gap-4">
-            <Sliders className="w-4 h-4 text-[#176B87] shrink-0" />
+            <Sliders className="w-4 h-4 text-[#009FE3] shrink-0" />
             <div className="flex-1">
               <div className="flex justify-between text-xs text-[#62757C] mb-1">
                 <span>Surface (0 m)</span>
-                <span className="text-[#123B4A] font-bold font-mono">Selected: {selectedDepth} m</span>
+                <span className="text-[#071B33] font-bold font-mono">Selected: {selectedDepth} m</span>
                 <span>Deep (1000 m)</span>
               </div>
               <input
@@ -494,9 +494,9 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
           {/* Active Depth Telemetry Card */}
           <div className="bg-[#F8FAFA] p-4 rounded-md border border-[#D5E0E2]">
             <div className="flex items-center justify-between text-xs text-[#62757C] pb-2 border-b border-[#D5E0E2]">
-              <span className="font-medium text-[#123B4A]">Estimated layer metrics</span>
+              <span className="font-medium text-[#071B33]">Estimated layer metrics</span>
               <span className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
-                confidenceScore >= 85 ? 'bg-[#DCEFEA] text-[#123B4A] border border-[#2A8C82]/30' : 'bg-[#FFF3D6] text-[#8C5E14] border border-[#D99A3D]/30'
+                confidenceScore >= 85 ? 'bg-[#DCEFEA] text-[#071B33] border border-[#009FE3]/30' : 'bg-[#FFF3D6] text-[#8C5E14] border border-[#D99A3D]/30'
               }`}>
                 {confidenceScore >= 85 ? 'High confidence' : 'Medium confidence'}
               </span>
@@ -505,28 +505,28 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
             <div className="grid grid-cols-2 gap-3 mt-3">
               <div className="bg-[#FFFFFF] p-2.5 rounded border border-[#D5E0E2]">
                 <span className="text-[11px] text-[#62757C] block">Reconstructed temp</span>
-                <div className="text-xl font-bold text-[#123B4A] font-mono mt-0.5">
+                <div className="text-xl font-bold text-[#071B33] font-mono mt-0.5">
                   {currentTemp.toFixed(2)} °C
                 </div>
               </div>
 
               <div className="bg-[#FFFFFF] p-2.5 rounded border border-[#D5E0E2]">
                 <span className="text-[11px] text-[#62757C] block">Uncertainty (±1σ)</span>
-                <div className="text-xl font-bold text-[#176B87] font-mono mt-0.5">
+                <div className="text-xl font-bold text-[#009FE3] font-mono mt-0.5">
                   ±{currentUnc.toFixed(2)} °C
                 </div>
               </div>
 
               <div className="bg-[#FFFFFF] p-2.5 rounded border border-[#D5E0E2]">
                 <span className="text-[11px] text-[#62757C] block">Data trust index</span>
-                <div className="text-base font-bold text-[#2A8C82] font-mono mt-0.5">
+                <div className="text-base font-bold text-[#009FE3] font-mono mt-0.5">
                   {confidenceScore}%
                 </div>
               </div>
 
               <div className="bg-[#FFFFFF] p-2.5 rounded border border-[#D5E0E2]">
                 <span className="text-[11px] text-[#62757C] block">ARGO in-situ</span>
-                <div className="text-base font-bold text-[#123B4A] font-mono mt-0.5">
+                <div className="text-base font-bold text-[#071B33] font-mono mt-0.5">
                   {argoData?.comparison_table.find(r => r.depth === selectedDepth)?.argo_observed.toFixed(2) || '24.5'} °C
                 </div>
               </div>
@@ -536,7 +536,7 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
           {/* Vertical Profile SVG Visualization */}
           <div className="bg-[#FFFFFF] p-4 rounded-md border border-[#D5E0E2] flex-1 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs text-[#62757C] pb-2 border-b border-[#D5E0E2]">
-              <span className="font-semibold text-[#123B4A]">Temperature with depth profile</span>
+              <span className="font-semibold text-[#071B33]">Temperature with depth profile</span>
               <span className="text-[10px] text-[#62757C]">Depth inverted (0–1000 m)</span>
             </div>
 
@@ -592,7 +592,7 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
                       <path d={bandStr} fill="rgba(42, 140, 130, 0.12)" />
 
                       {/* Main Profile Line: Solid Teal */}
-                      <path d={pathStr} fill="none" stroke="#2A8C82" strokeWidth="2.5" />
+                      <path d={pathStr} fill="none" stroke="#009FE3" strokeWidth="2.5" />
 
                       {/* ARGO truth points: Dark Navy Dots */}
                       {argoData?.comparison_table.map((row) => (
@@ -601,15 +601,15 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
                           cx={xCoord(row.argo_observed)}
                           cy={yCoord(row.depth)}
                           r="3"
-                          fill="#123B4A"
+                          fill="#071B33"
                           stroke="#FFFFFF"
                           strokeWidth="1"
                         />
                       ))}
 
                       {/* Active cursor line */}
-                      <line x1="40" y1={curY} x2="270" y2={curY} stroke="#176B87" strokeWidth="1" strokeDasharray="3,3" />
-                      <circle cx={curX} cy={curY} r="4.5" fill="#2A8C82" stroke="#FFFFFF" strokeWidth="1.5" />
+                      <line x1="40" y1={curY} x2="270" y2={curY} stroke="#009FE3" strokeWidth="1" strokeDasharray="3,3" />
+                      <circle cx={curX} cy={curY} r="4.5" fill="#009FE3" stroke="#FFFFFF" strokeWidth="1.5" />
                     </>
                   );
                 })()}
@@ -618,14 +618,14 @@ export const SubsurfaceDigitalTwin: React.FC<SubsurfaceDigitalTwinProps> = ({
 
             {/* Profile Legend */}
             <div className="flex items-center justify-between text-[11px] text-[#62757C] pt-2 border-t border-[#D5E0E2]">
-              <span className="flex items-center gap-1.5 text-[#123B4A] font-medium">
-                <span className="w-3.5 h-0.75 bg-[#2A8C82] inline-block rounded" /> Neeraksh
+              <span className="flex items-center gap-1.5 text-[#071B33] font-medium">
+                <span className="w-3.5 h-0.75 bg-[#009FE3] inline-block rounded" /> Neeraksh
               </span>
               <span className="flex items-center gap-1.5 text-[#62757C]">
-                <span className="w-2.5 h-2 bg-[#2A8C82]/20 inline-block border border-[#2A8C82]/40 rounded-xs" /> ±1σ band
+                <span className="w-2.5 h-2 bg-[#009FE3]/20 inline-block border border-[#009FE3]/40 rounded-xs" /> ±1σ band
               </span>
-              <span className="flex items-center gap-1.5 text-[#123B4A] font-medium">
-                <span className="w-2 h-2 rounded-full bg-[#123B4A] inline-block" /> ARGO in-situ
+              <span className="flex items-center gap-1.5 text-[#071B33] font-medium">
+                <span className="w-2 h-2 rounded-full bg-[#071B33] inline-block" /> ARGO in-situ
               </span>
             </div>
           </div>

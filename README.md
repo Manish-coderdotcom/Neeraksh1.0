@@ -80,10 +80,11 @@ The platform strictly differentiates observational confidence:
 # Navigate to project directory
 cd OceanLens
 
-# Run the FastAPI server on port 8008
-py -m uvicorn backend.main:app --host 127.0.0.1 --port 8008 --reload
+# Run the FastAPI server on port 8000
+py -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload
 ```
-API documentation is available at `http://127.0.0.1:8008/docs`.
+
+API documentation is available at `http://127.0.0.1:8000/docs`.
 
 ### 3. Frontend Web Application (Vite + React + TypeScript + Three.js)
 ```bash

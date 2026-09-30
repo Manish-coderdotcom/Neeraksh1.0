@@ -36,13 +36,13 @@ export const ThermoclineRadar: React.FC<ThermoclineRadarProps> = ({
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#E2ECEE]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#176B87]">
+            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#009FE3]">
               <Waves className="w-4 h-4" />
             </span>
-            <h2 className="text-base font-semibold text-[#123B4A]">
+            <h2 className="text-base font-semibold text-[#071B33]">
               Thermocline & mixed layer analysis
             </h2>
-            <span className="text-[11px] font-mono bg-[#F4F7F6] text-[#62757C] border border-[#D5E0E2] px-2 py-0.5 rounded">
+            <span className="text-[11px] font-mono bg-[#F4F9FC] text-[#62757C] border border-[#D5E0E2] px-2 py-0.5 rounded">
               Gradient inflection (dT/dz)
             </span>
           </div>
@@ -51,9 +51,9 @@ export const ThermoclineRadar: React.FC<ThermoclineRadarProps> = ({
           </p>
         </div>
 
-        <div className="flex items-center gap-2 bg-[#F4F7F6] px-3 py-1.5 rounded-md border border-[#D5E0E2] text-xs font-mono">
+        <div className="flex items-center gap-2 bg-[#F4F9FC] px-3 py-1.5 rounded-md border border-[#D5E0E2] text-xs font-mono">
           <span className="text-[#62757C]">Inflection depth:</span>
-          <span className="text-[#176B87] font-bold">{thDepth} m</span>
+          <span className="text-[#009FE3] font-bold">{thDepth} m</span>
         </div>
       </div>
 
@@ -68,7 +68,7 @@ export const ThermoclineRadar: React.FC<ThermoclineRadarProps> = ({
 
           {/* Vertical Stratification Ladder */}
           <div className="py-3 space-y-1 text-xs">
-            <div className="flex items-center justify-between text-[#123B4A] bg-white p-2 rounded border border-[#E2ECEE] font-mono">
+            <div className="flex items-center justify-between text-[#071B33] bg-white p-2 rounded border border-[#E2ECEE] font-mono">
               <span className="font-sans font-medium">Surface (0 m)</span>
               <span className="font-bold">{upperProfile.find(p => p.depth === 0)?.temperature.toFixed(1)} °C</span>
             </div>
@@ -83,7 +83,7 @@ export const ThermoclineRadar: React.FC<ThermoclineRadarProps> = ({
               <span>{upperProfile.find(p => p.depth === 20)?.temperature.toFixed(1)} °C</span>
             </div>
 
-            <div className="flex items-center justify-between text-[#176B87] px-3 py-1 bg-[#DCEFEA]/60 rounded border-l-2 border-[#2A8C82] font-mono">
+            <div className="flex items-center justify-between text-[#009FE3] px-3 py-1 bg-[#DCEFEA]/60 rounded border-l-2 border-[#009FE3] font-mono">
               <span className="font-sans font-medium">30 m (Mixed layer base)</span>
               <span>{upperProfile.find(p => p.depth === 30)?.temperature.toFixed(1)} °C</span>
             </div>
@@ -94,7 +94,7 @@ export const ThermoclineRadar: React.FC<ThermoclineRadarProps> = ({
                 <span className="w-2 h-2 rounded-full bg-[#D99A3D]" />
                 <span className="text-xs">Thermocline core ({thDepth} m)</span>
               </div>
-              <span className="text-[#123B4A] font-mono text-xs font-bold">{maxGrad} °C / 10m</span>
+              <span className="text-[#071B33] font-mono text-xs font-bold">{maxGrad} °C / 10m</span>
             </div>
 
             <div className="flex items-center justify-between text-[#62757C] px-3 py-1 font-mono">
@@ -109,13 +109,13 @@ export const ThermoclineRadar: React.FC<ThermoclineRadarProps> = ({
 
             <div className="flex items-center justify-between text-[#62757C] bg-white p-2 rounded border border-[#E2ECEE] font-mono">
               <span className="font-sans">200 m (Transition layer)</span>
-              <span className="font-bold text-[#123B4A]">{upperProfile.find(p => p.depth === 200)?.temperature.toFixed(1)} °C</span>
+              <span className="font-bold text-[#071B33]">{upperProfile.find(p => p.depth === 200)?.temperature.toFixed(1)} °C</span>
             </div>
           </div>
 
           <div className="text-[11px] text-[#62757C] pt-2 border-t border-[#E2ECEE] flex justify-between">
             <span>Detection: |dT/dz| &gt; 0.05 °C/m</span>
-            <span className="text-[#176B87] font-medium">Active gradient</span>
+            <span className="text-[#009FE3] font-medium">Active gradient</span>
           </div>
         </div>
 
@@ -125,7 +125,7 @@ export const ThermoclineRadar: React.FC<ThermoclineRadarProps> = ({
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-[#F8FAFA] p-3.5 rounded-md border border-[#D5E0E2]">
               <span className="text-[11px] text-[#62757C] block">Thermocline depth</span>
-              <div className="text-xl font-bold text-[#123B4A] font-mono mt-1">
+              <div className="text-xl font-bold text-[#071B33] font-mono mt-1">
                 {thDepth} m
               </div>
               <span className="text-[10px] text-[#62757C]">Inflection depth</span>
@@ -141,7 +141,7 @@ export const ThermoclineRadar: React.FC<ThermoclineRadarProps> = ({
 
             <div className="bg-[#F8FAFA] p-3.5 rounded-md border border-[#D5E0E2]">
               <span className="text-[11px] text-[#62757C] block">Mixed layer (MLD)</span>
-              <div className="text-xl font-bold text-[#2A8C82] font-mono mt-1">
+              <div className="text-xl font-bold text-[#009FE3] font-mono mt-1">
                 {mld} m
               </div>
               <span className="text-[10px] text-[#62757C]">ΔT ≤ 0.2 °C threshold</span>
@@ -151,10 +151,10 @@ export const ThermoclineRadar: React.FC<ThermoclineRadarProps> = ({
           {/* Thermal Structure Score Card */}
           <div className="bg-[#F8FAFA] p-4 rounded-md border border-[#D5E0E2]">
             <div className="flex items-center justify-between pb-3 border-b border-[#E2ECEE]">
-              <h3 className="text-xs font-semibold text-[#123B4A]">
+              <h3 className="text-xs font-semibold text-[#071B33]">
                 Thermal stratification index
               </h3>
-              <span className="text-base font-bold text-[#176B87] font-mono">
+              <span className="text-base font-bold text-[#009FE3] font-mono">
                 {score} / 100
               </span>
             </div>
@@ -162,7 +162,7 @@ export const ThermoclineRadar: React.FC<ThermoclineRadarProps> = ({
             <div className="mt-3">
               <div className="w-full h-2 bg-[#D5E0E2] rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-[#176B87] rounded-full transition-all"
+                  className="h-full bg-[#009FE3] rounded-full transition-all"
                   style={{ width: `${score}%` }}
                 />
               </div>
@@ -171,7 +171,7 @@ export const ThermoclineRadar: React.FC<ThermoclineRadarProps> = ({
                 <span className="text-[11px] text-[#62757C] block font-medium mb-1">
                   Mathematical formulation
                 </span>
-                <p className="text-[#17313B] font-mono text-[11px] leading-relaxed">
+                <p className="text-[#071B33] font-mono text-[11px] leading-relaxed">
                   {analysis?.formula_documentation || "Stability Score S = 100 * clamp((T_0m - T_200m) / 14°C, 0.1, 1.0), quantifying upper-ocean thermal resistance to vertical mixing."}
                 </p>
                 <div className="text-[10px] text-[#62757C] mt-1.5">
@@ -185,11 +185,11 @@ export const ThermoclineRadar: React.FC<ThermoclineRadarProps> = ({
           <div className="bg-[#F8FAFA] p-3.5 rounded-md border border-[#D5E0E2] text-xs flex items-center justify-between">
             <div>
               <span className="text-[10px] text-[#62757C] block uppercase">1991–2020 climatological average</span>
-              <span className="text-xs font-semibold text-[#123B4A] mt-0.5 block">
+              <span className="text-xs font-semibold text-[#071B33] mt-0.5 block">
                 Average thermocline depth: 68 m (Current observation is 4 m deeper)
               </span>
             </div>
-            <span className="text-xs font-medium text-[#176B87] bg-[#D8E7EC] px-2.5 py-1 rounded border border-[#BFD9E2]">
+            <span className="text-xs font-medium text-[#009FE3] bg-[#D8E7EC] px-2.5 py-1 rounded border border-[#BFD9E2]">
               Normal variance
             </span>
           </div>

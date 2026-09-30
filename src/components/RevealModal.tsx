@@ -98,17 +98,17 @@ export const RevealModal: React.FC<RevealModalProps> = ({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-1.5 rounded-md text-[#62757C] hover:text-[#17313B] transition"
+          className="absolute top-5 right-5 p-1.5 rounded-md text-[#62757C] hover:text-[#071B33] transition"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Modal Header */}
         <div className="text-left">
-          <span className="text-[11px] font-mono text-[#176B87] bg-[#DCEFEA] px-2 py-0.5 rounded border border-[#BCE3DA] uppercase font-medium">
+          <span className="text-[11px] font-mono text-[#009FE3] bg-[#DCEFEA] px-2 py-0.5 rounded border border-[#BCE3DA] uppercase font-medium">
             System overview
           </span>
-          <h2 className="text-xl font-semibold text-[#123B4A] mt-2">
+          <h2 className="text-xl font-semibold text-[#071B33] mt-2">
             Subsurface temperature reconstruction workflow
           </h2>
           <p className="text-xs text-[#62757C] mt-1">
@@ -128,10 +128,10 @@ export const RevealModal: React.FC<RevealModalProps> = ({
                 className="cursor-pointer flex flex-col items-center gap-1.5"
               >
                 <div className={`h-1.5 w-full rounded-full transition-all ${
-                  isCurrent ? 'bg-[#176B87]' : isCompleted ? 'bg-[#2A8C82]' : 'bg-[#E2ECEE]'
+                  isCurrent ? 'bg-[#009FE3]' : isCompleted ? 'bg-[#009FE3]' : 'bg-[#E2ECEE]'
                 }`} />
                 <span className={`text-[10px] font-mono ${
-                  isCurrent ? 'text-[#123B4A] font-bold' : isCompleted ? 'text-[#62757C]' : 'text-[#A0B0B5]'
+                  isCurrent ? 'text-[#071B33] font-bold' : isCompleted ? 'text-[#62757C]' : 'text-[#A0B0B5]'
                 }`}>
                   0{st.num}
                 </span>
@@ -147,7 +147,7 @@ export const RevealModal: React.FC<RevealModalProps> = ({
               const active = steps[currentStep - 1];
               const Icon = active.icon;
               return (
-                <div className="w-14 h-14 rounded-md bg-[#DCEFEA] text-[#176B87] flex items-center justify-center shrink-0 border border-[#BCE3DA]">
+                <div className="w-14 h-14 rounded-md bg-[#DCEFEA] text-[#009FE3] flex items-center justify-center shrink-0 border border-[#BCE3DA]">
                   <Icon className="w-7 h-7" />
                 </div>
               );
@@ -157,7 +157,7 @@ export const RevealModal: React.FC<RevealModalProps> = ({
               <span className="text-[11px] font-mono uppercase text-[#62757C] block mb-1">
                 Step 0{currentStep} of 06
               </span>
-              <h3 className="text-base font-semibold text-[#123B4A]">
+              <h3 className="text-base font-semibold text-[#071B33]">
                 {steps[currentStep - 1].title}
               </h3>
               <p className="text-xs text-[#62757C] mt-1.5 leading-relaxed">
@@ -167,8 +167,8 @@ export const RevealModal: React.FC<RevealModalProps> = ({
           </div>
 
           {currentStep === 6 && (
-            <div className="mt-5 pt-4 border-t border-[#D5E0E2] text-xs text-[#17313B] leading-relaxed">
-              <span className="font-semibold text-[#123B4A]">Core methodology summary: </span>
+            <div className="mt-5 pt-4 border-t border-[#D5E0E2] text-xs text-[#071B33] leading-relaxed">
+              <span className="font-semibold text-[#071B33]">Core methodology summary: </span>
               OceanEmbed bridges the observational gap between satellite surface remote sensing and autonomous profiling floats, providing researchers with estimated 3D subsurface temperature profiles benchmarked against in-situ ARGO observations.
             </div>
           )}
@@ -178,7 +178,7 @@ export const RevealModal: React.FC<RevealModalProps> = ({
         <div className="mt-6 flex items-center justify-between pt-4 border-t border-[#E2ECEE]">
           <button
             onClick={() => { setCurrentStep(1); setIsAutoPlaying(true); }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs text-[#62757C] hover:text-[#17313B] bg-[#F4F7F6] border border-[#D5E0E2] transition cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs text-[#62757C] hover:text-[#071B33] bg-[#F4F9FC] border border-[#D5E0E2] transition cursor-pointer"
           >
             <RotateCw className="w-3.5 h-3.5" />
             <span>Replay</span>
@@ -193,7 +193,7 @@ export const RevealModal: React.FC<RevealModalProps> = ({
                 }
               }}
               disabled={currentStep === 1}
-              className="px-3 py-1.5 rounded-md text-xs bg-[#F4F7F6] text-[#62757C] border border-[#D5E0E2] hover:bg-[#E8F0F2] disabled:opacity-40 transition cursor-pointer"
+              className="px-3 py-1.5 rounded-md text-xs bg-[#F4F9FC] text-[#62757C] border border-[#D5E0E2] hover:bg-[#E8F0F2] disabled:opacity-40 transition cursor-pointer"
             >
               Previous
             </button>
@@ -204,7 +204,7 @@ export const RevealModal: React.FC<RevealModalProps> = ({
                   setCurrentStep(currentStep + 1);
                   setIsAutoPlaying(false);
                 }}
-                className="flex items-center gap-1.5 px-4 py-1.5 rounded-md bg-[#176B87] hover:bg-[#123B4A] text-white text-xs font-medium transition cursor-pointer"
+                className="flex items-center gap-1.5 px-4 py-1.5 rounded-md bg-[#009FE3] hover:bg-[#071B33] text-white text-xs font-medium transition cursor-pointer"
               >
                 <span>Next step</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -212,7 +212,7 @@ export const RevealModal: React.FC<RevealModalProps> = ({
             ) : (
               <button
                 onClick={onClose}
-                className="px-4 py-1.5 rounded-md bg-[#176B87] hover:bg-[#123B4A] text-white text-xs font-medium transition cursor-pointer"
+                className="px-4 py-1.5 rounded-md bg-[#009FE3] hover:bg-[#071B33] text-white text-xs font-medium transition cursor-pointer"
               >
                 Close
               </button>

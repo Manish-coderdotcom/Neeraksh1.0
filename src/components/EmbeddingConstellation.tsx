@@ -33,10 +33,22 @@ export const EmbeddingConstellation: React.FC<EmbeddingConstellationProps> = ({
     setIsLoading(true);
     try {
       const data = await oceanApi.getEmbeddingSpace(selectedBasin);
-      setPoints(data.embedding_points);
-      const current = data.embedding_points.find(p => p.is_current) || data.embedding_points[0];
+      const fetched = Array.isArray(data?.embedding_points) ? data.embedding_points : [];
+      setPoints(fetched);
+
+      // An empty filter result must not reach highlightNeighbors, which
+      // dereferences target.umap_x / target.id.
+      const current = fetched.find(p => p.is_current) || fetched[0] || null;
       setSelectedPoint(current);
-      highlightNeighbors(current, data.embedding_points);
+      setSimilarNeighbors([]);
+      if (current) {
+        highlightNeighbors(current, fetched);
+      }
+    } catch (err) {
+      console.error('Embedding space fetch failed:', err);
+      setPoints([]);
+      setSelectedPoint(null);
+      setSimilarNeighbors([]);
     } finally {
       setIsLoading(false);
     }
@@ -72,13 +84,13 @@ export const EmbeddingConstellation: React.FC<EmbeddingConstellationProps> = ({
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#E2ECEE]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#176B87]">
+            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#009FE3]">
               <Layers className="w-4 h-4" />
             </span>
-            <h2 className="text-base font-semibold text-[#123B4A]">
+            <h2 className="text-base font-semibold text-[#071B33]">
               Ocean embedding space (UMAP manifold)
             </h2>
-            <span className="text-[11px] font-mono bg-[#F4F7F6] text-[#62757C] border border-[#D5E0E2] px-2 py-0.5 rounded">
+            <span className="text-[11px] font-mono bg-[#F4F9FC] text-[#62757C] border border-[#D5E0E2] px-2 py-0.5 rounded">
               128-D → 2D Projection
             </span>
           </div>
@@ -88,15 +100,15 @@ export const EmbeddingConstellation: React.FC<EmbeddingConstellationProps> = ({
         </div>
 
         {/* Basin filter tabs */}
-        <div className="flex items-center gap-1 bg-[#F4F7F6] p-1 rounded-md border border-[#D5E0E2] overflow-x-auto max-w-full">
+        <div className="flex items-center gap-1 bg-[#F4F9FC] p-1 rounded-md border border-[#D5E0E2] overflow-x-auto max-w-full">
           {basins.map(b => (
             <button
               key={b}
               onClick={() => setSelectedBasin(b)}
               className={`px-2.5 py-1 rounded text-xs font-medium whitespace-nowrap transition cursor-pointer ${
                 selectedBasin.toLowerCase() === b.toLowerCase()
-                  ? 'bg-[#176B87] text-white shadow-xs'
-                  : 'text-[#62757C] hover:text-[#17313B]'
+                  ? 'bg-[#009FE3] text-white shadow-xs'
+                  : 'text-[#62757C] hover:text-[#071B33]'
               }`}
             >
               {b === 'all' ? 'All basins' : b}
@@ -109,7 +121,7 @@ export const EmbeddingConstellation: React.FC<EmbeddingConstellationProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
         {/* Left Column: 2D UMAP Scatter Canvas */}
         <div className="lg:col-span-8 flex flex-col">
-          <div className="relative w-full h-[420px] bg-[#123B4A] rounded-md border border-[#D5E0E2] overflow-hidden p-4">
+          <div className="relative w-full h-[420px] bg-[#071B33] rounded-md border border-[#D5E0E2] overflow-hidden p-4">
             {/* Scatter SVG Canvas */}
             <svg className="w-full h-full" viewBox="-12 -8 24 16">
               {/* Axes lines */}
@@ -136,9 +148,9 @@ export const EmbeddingConstellation: React.FC<EmbeddingConstellationProps> = ({
                 const isNeighbor = similarNeighbors.some(nb => nb.id === pt.id);
                 const isHovered = hoveredPoint?.id === pt.id;
 
-                let color = '#2A8C82';
-                if (pt.basin === 'Arabian Sea') color = '#2A8C82';
-                if (pt.basin === 'Bay of Bengal') color = '#176B87';
+                let color = '#009FE3';
+                if (pt.basin === 'Arabian Sea') color = '#009FE3';
+                if (pt.basin === 'Bay of Bengal') color = '#009FE3';
                 if (pt.basin === 'Indian Ocean') color = '#3D806C';
                 if (pt.basin === 'Pacific') color = '#D99A3D';
                 if (pt.basin === 'Atlantic') color = '#C85C4B';
@@ -188,9 +200,9 @@ export const EmbeddingConstellation: React.FC<EmbeddingConstellationProps> = ({
             </svg>
 
             {/* Overlaid legend */}
-            <div className="absolute bottom-3 left-3 bg-white/95 border border-[#D5E0E2] rounded-md p-2 text-[10px] text-[#17313B] flex flex-wrap gap-3">
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#2A8C82]" /> Arabian Sea</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#176B87]" /> Bay of Bengal</span>
+            <div className="absolute bottom-3 left-3 bg-white/95 border border-[#D5E0E2] rounded-md p-2 text-[10px] text-[#071B33] flex flex-wrap gap-3">
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#009FE3]" /> Arabian Sea</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#009FE3]" /> Bay of Bengal</span>
               <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#3D806C]" /> Indian Ocean</span>
               <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#D99A3D]" /> Pacific</span>
               <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#C85C4B]" /> Atlantic</span>
@@ -198,16 +210,16 @@ export const EmbeddingConstellation: React.FC<EmbeddingConstellationProps> = ({
 
             {/* Hover Tooltip HUD */}
             {hoveredPoint && (
-              <div className="absolute top-3 right-3 bg-white/95 border border-[#D5E0E2] rounded-md p-3 text-xs text-[#17313B] shadow-md pointer-events-none max-w-xs">
-                <div className="text-[#123B4A] font-semibold text-xs mb-1">{hoveredPoint.name}</div>
+              <div className="absolute top-3 right-3 bg-white/95 border border-[#D5E0E2] rounded-md p-3 text-xs text-[#071B33] shadow-md pointer-events-none max-w-xs">
+                <div className="text-[#071B33] font-semibold text-xs mb-1">{hoveredPoint.name}</div>
                 <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11px] text-[#62757C]">
-                  <div>Date: <span className="text-[#17313B] font-medium">{hoveredPoint.date}</span></div>
-                  <div>Basin: <span className="text-[#17313B] font-medium">{hoveredPoint.basin}</span></div>
-                  <div>SST: <span className="text-[#176B87] font-semibold font-mono">{hoveredPoint.sst} °C</span></div>
-                  <div>Thermocline: <span className="text-[#123B4A] font-semibold font-mono">{hoveredPoint.thermocline_depth} m</span></div>
+                  <div>Date: <span className="text-[#071B33] font-medium">{hoveredPoint.date}</span></div>
+                  <div>Basin: <span className="text-[#071B33] font-medium">{hoveredPoint.basin}</span></div>
+                  <div>SST: <span className="text-[#009FE3] font-semibold font-mono">{hoveredPoint.sst} °C</span></div>
+                  <div>Thermocline: <span className="text-[#071B33] font-semibold font-mono">{hoveredPoint.thermocline_depth} m</span></div>
                 </div>
                 <div className="mt-2 text-[10px] text-[#62757C] pt-1.5 border-t border-[#E2ECEE]">
-                  Condition: <span className="text-[#17313B]">{hoveredPoint.condition}</span>
+                  Condition: <span className="text-[#071B33]">{hoveredPoint.condition}</span>
                 </div>
               </div>
             )}
@@ -219,8 +231,8 @@ export const EmbeddingConstellation: React.FC<EmbeddingConstellationProps> = ({
           <div className="bg-[#F8FAFA] p-4 rounded-md border border-[#D5E0E2]">
             <div className="flex items-center justify-between pb-2.5 border-b border-[#E2ECEE]">
               <div className="flex items-center gap-2">
-                <Search className="w-3.5 h-3.5 text-[#176B87]" />
-                <h3 className="text-xs font-semibold text-[#123B4A]">
+                <Search className="w-3.5 h-3.5 text-[#009FE3]" />
+                <h3 className="text-xs font-semibold text-[#071B33]">
                   Nearest manifold states
                 </h3>
               </div>
@@ -230,7 +242,7 @@ export const EmbeddingConstellation: React.FC<EmbeddingConstellationProps> = ({
             </div>
 
             <p className="text-xs text-[#62757C] mt-2">
-              Historical states matching <span className="text-[#123B4A] font-medium">{selectedPoint?.name || 'Current ocean state'}</span> in the 128-dimensional embedding space:
+              Historical states matching <span className="text-[#071B33] font-medium">{selectedPoint?.name || 'Current ocean state'}</span> in the 128-dimensional embedding space:
             </p>
 
             <div className="space-y-2 mt-3">
@@ -238,11 +250,11 @@ export const EmbeddingConstellation: React.FC<EmbeddingConstellationProps> = ({
                 <div
                   key={nb.id}
                   onClick={() => handlePointClick(nb)}
-                  className="p-2.5 rounded-md bg-white hover:bg-[#F4F7F6] border border-[#D5E0E2] cursor-pointer transition flex items-center justify-between text-xs"
+                  className="p-2.5 rounded-md bg-white hover:bg-[#F4F9FC] border border-[#D5E0E2] cursor-pointer transition flex items-center justify-between text-xs"
                 >
                   <div>
-                    <div className="font-medium text-[#123B4A] flex items-center gap-1.5">
-                      <span className="text-[#176B87] font-mono text-[10px]">#{i + 1}</span>
+                    <div className="font-medium text-[#071B33] flex items-center gap-1.5">
+                      <span className="text-[#009FE3] font-mono text-[10px]">#{i + 1}</span>
                       <span>{nb.name}</span>
                     </div>
                     <div className="text-[10px] text-[#62757C] mt-0.5 font-mono">
@@ -251,7 +263,7 @@ export const EmbeddingConstellation: React.FC<EmbeddingConstellationProps> = ({
                   </div>
 
                   <div className="text-right">
-                    <span className="text-xs font-bold text-[#2A8C82] font-mono">
+                    <span className="text-xs font-bold text-[#009FE3] font-mono">
                       {nb.similarity}%
                     </span>
                     <span className="text-[9px] text-[#62757C] block">
@@ -268,13 +280,13 @@ export const EmbeddingConstellation: React.FC<EmbeddingConstellationProps> = ({
             <span className="text-[10px] uppercase text-[#62757C] block mb-1 font-medium">
               Selected manifold point
             </span>
-            <div className="text-sm font-semibold text-[#123B4A]">
+            <div className="text-sm font-semibold text-[#071B33]">
               {selectedPoint?.name}
             </div>
             <div className="text-xs text-[#62757C] mt-1 font-mono">
               Coordinates: {selectedPoint?.lat}°N, {selectedPoint?.lon}°E
             </div>
-            <div className="text-xs text-[#176B87] mt-0.5 font-mono">
+            <div className="text-xs text-[#009FE3] mt-0.5 font-mono">
               SST: {selectedPoint?.sst} °C | Thermocline: {selectedPoint?.thermocline_depth} m
             </div>
           </div>

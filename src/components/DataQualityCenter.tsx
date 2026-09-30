@@ -65,13 +65,13 @@ export const DataQualityCenter: React.FC<DataQualityCenterProps> = ({
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#E2ECEE]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#176B87]">
+            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#009FE3]">
               <Database className="w-4 h-4" />
             </span>
-            <h2 className="text-base font-semibold text-[#123B4A]">
+            <h2 className="text-base font-semibold text-[#071B33]">
               Data quality control & ingestion pipeline
             </h2>
-            <span className="text-[11px] font-mono bg-[#F4F7F6] text-[#62757C] border border-[#D5E0E2] px-2 py-0.5 rounded">
+            <span className="text-[11px] font-mono bg-[#F4F9FC] text-[#62757C] border border-[#D5E0E2] px-2 py-0.5 rounded">
               L2 to L4 Pipeline
             </span>
           </div>
@@ -80,7 +80,7 @@ export const DataQualityCenter: React.FC<DataQualityCenterProps> = ({
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-[#2A8C82] bg-[#DCEFEA] px-3 py-1 rounded-md border border-[#BCE3DA]">
+        <div className="flex items-center gap-2 text-xs text-[#009FE3] bg-[#DCEFEA] px-3 py-1 rounded-md border border-[#BCE3DA]">
           <CheckCircle2 className="w-3.5 h-3.5" />
           <span className="font-medium">All sensor channels synchronized</span>
         </div>
@@ -97,12 +97,12 @@ export const DataQualityCenter: React.FC<DataQualityCenterProps> = ({
             <div key={stage.step} className="bg-[#F8FAFA] p-3.5 rounded-md border border-[#D5E0E2] flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between pb-2 border-b border-[#E2ECEE]">
-                  <span className="text-[10px] font-mono text-[#176B87] font-semibold">Stage 0{stage.step}</span>
-                  <span className="text-[10px] font-mono text-[#2A8C82] bg-[#DCEFEA] px-1.5 py-0.5 rounded border border-[#BCE3DA]">
+                  <span className="text-[10px] font-mono text-[#009FE3] font-semibold">Stage 0{stage.step}</span>
+                  <span className="text-[10px] font-mono text-[#009FE3] bg-[#DCEFEA] px-1.5 py-0.5 rounded border border-[#BCE3DA]">
                     {stage.status}
                   </span>
                 </div>
-                <h4 className="text-xs font-semibold text-[#123B4A] mt-2">{stage.name}</h4>
+                <h4 className="text-xs font-semibold text-[#071B33] mt-2">{stage.name}</h4>
                 <p className="text-[11px] text-[#62757C] mt-1 leading-relaxed">{stage.desc}</p>
               </div>
 
@@ -116,14 +116,14 @@ export const DataQualityCenter: React.FC<DataQualityCenterProps> = ({
 
       {/* Sensor Stream QA Table */}
       <div className="mt-6 bg-[#F8FAFA] rounded-md border border-[#D5E0E2] overflow-hidden">
-        <div className="p-3 bg-white border-b border-[#D5E0E2] flex items-center justify-between text-xs text-[#123B4A] font-medium">
+        <div className="p-3 bg-white border-b border-[#D5E0E2] flex items-center justify-between text-xs text-[#071B33] font-medium">
           <span>Satellite sensor channel telemetry audit</span>
           <span className="text-[11px] text-[#62757C]">5 sensor streams active</span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-mono">
-            <thead className="bg-[#F4F7F6] text-[#62757C] uppercase text-[10px] border-b border-[#D5E0E2]">
+            <thead className="bg-[#F4F9FC] text-[#62757C] uppercase text-[10px] border-b border-[#D5E0E2]">
               <tr>
                 <th className="py-2.5 px-3">Variable</th>
                 <th className="py-2.5 px-3">Instrument</th>
@@ -134,17 +134,17 @@ export const DataQualityCenter: React.FC<DataQualityCenterProps> = ({
                 <th className="py-2.5 px-3 text-right">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E2ECEE] text-[#17313B]">
+            <tbody className="divide-y divide-[#E2ECEE] text-[#071B33]">
               {sensors.map((s) => (
                 <tr key={s.name} className="hover:bg-white transition">
-                  <td className="py-2.5 px-3 font-semibold text-[#123B4A] font-sans">{s.name}</td>
-                  <td className="py-2.5 px-3 text-[#176B87]">{s.inst}</td>
+                  <td className="py-2.5 px-3 font-semibold text-[#071B33] font-sans">{s.name}</td>
+                  <td className="py-2.5 px-3 text-[#009FE3]">{s.inst}</td>
                   <td className="py-2.5 px-3 text-[#62757C]">{s.res}</td>
                   <td className="py-2.5 px-3 text-[#62757C]">{s.cloud}</td>
-                  <td className="py-2.5 px-3 text-[#2A8C82] font-semibold">{s.completeness}</td>
+                  <td className="py-2.5 px-3 text-[#009FE3] font-semibold">{s.completeness}</td>
                   <td className="py-2.5 px-3 text-[#62757C]">{s.latency}</td>
                   <td className="py-2.5 px-3 text-right">
-                    <span className="bg-[#DCEFEA] text-[#2A8C82] border border-[#BCE3DA] px-2 py-0.5 rounded text-[10px] font-medium">
+                    <span className="bg-[#DCEFEA] text-[#009FE3] border border-[#BCE3DA] px-2 py-0.5 rounded text-[10px] font-medium">
                       {s.status}
                     </span>
                   </td>

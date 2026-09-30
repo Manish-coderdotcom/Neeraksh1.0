@@ -122,6 +122,21 @@ function calculatePhysicalProfile(regionKey: string, sstOffset = 0, sssOffset = 
 }
 
 export const oceanApi = {
+  async checkBackend(): Promise<boolean> {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 2500);
+      try {
+        const res = await fetch('/api/health', { signal: controller.signal });
+        return res.ok;
+      } finally {
+        clearTimeout(timer);
+      }
+    } catch {
+      return false;
+    }
+  },
+
   async getSatelliteObservation(region = 'arabian_sea'): Promise<SatelliteObservation> {
     try {
       const res = await fetch(`/api/satellite?region=${encodeURIComponent(region)}`);

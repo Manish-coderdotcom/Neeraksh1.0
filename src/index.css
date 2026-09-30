@@ -7,14 +7,14 @@
     --font-mono: 'JetBrains Mono', monospace;
     
     /* Scientific Oceanographic Research Palette */
-    --bg-primary: #F4F7F6;
+    --bg-primary: #F4F9FC;
     --surface: #FFFFFF;
-    --deep-ocean: #123B4A;
-    --ocean-blue: #176B87;
-    --sea-teal: #2A8C82;
+    --deep-ocean: #071B33;
+    --ocean-blue: #009FE3;
+    --sea-teal: #009FE3;
     --soft-seafoam: #DCEFEA;
     --muted-blue: #D8E7EC;
-    --text-primary: #17313B;
+    --text-primary: #071B33;
     --text-secondary: #62757C;
     --border-color: #D5E0E2;
     --color-warning: #D99A3D;
@@ -38,6 +38,44 @@
   code, pre, .font-mono {
     font-family: var(--font-mono);
   }
+
+  /* Standard Research Panel (replacing glowing glassmorphism).
+     These MUST live inside a layer: unlayered declarations outrank every
+     @layer, so as plain top-level rules they silently beat the Tailwind
+     utilities on the panels that carry them (bg-*, rounded-*, border-*,
+     shadow-*, accent-*) and painted white panels behind light text. */
+  .research-card,
+  .glass-panel {
+    background: #FFFFFF;
+    border: 1px solid #D5E0E2;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(7, 27, 51, 0.05), 0 1px 2px rgba(7, 27, 51, 0.03);
+  }
+
+  .glass-panel-interactive {
+    background: #FFFFFF;
+    border: 1px solid #D5E0E2;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(7, 27, 51, 0.05);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .glass-panel-interactive:hover {
+    border-color: #009FE3;
+    box-shadow: 0 2px 6px rgba(7, 27, 51, 0.08);
+  }
+
+  /* Scientific Range Slider. Layered so per-slider accent-* utilities win. */
+  input[type="range"] {
+    accent-color: #009FE3;
+  }
+
+  /* Minimal utilities */
+  .bg-subtle-grid {
+    background-size: 24px 24px;
+    background-image: 
+      linear-gradient(to right, rgba(213, 224, 226, 0.4) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(213, 224, 226, 0.4) 1px, transparent 1px);
+  }
 }
 
 /* Subtle scientific scrollbars */
@@ -46,46 +84,12 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F4F7F6;
+  background: #F4F9FC;
 }
 ::-webkit-scrollbar-thumb {
   background: #C5D4D7;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #176B87;
-}
-
-/* Standard Research Panel (replacing glowing glassmorphism) */
-.research-card,
-.glass-panel {
-  background: #FFFFFF;
-  border: 1px solid #D5E0E2;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(18, 59, 74, 0.05), 0 1px 2px rgba(18, 59, 74, 0.03);
-}
-
-.glass-panel-interactive {
-  background: #FFFFFF;
-  border: 1px solid #D5E0E2;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(18, 59, 74, 0.05);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-.glass-panel-interactive:hover {
-  border-color: #176B87;
-  box-shadow: 0 2px 6px rgba(18, 59, 74, 0.08);
-}
-
-/* Scientific Range Slider */
-input[type="range"] {
-  accent-color: #2A8C82;
-}
-
-/* Minimal utilities */
-.bg-subtle-grid {
-  background-size: 24px 24px;
-  background-image: 
-    linear-gradient(to right, rgba(213, 224, 226, 0.4) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(213, 224, 226, 0.4) 1px, transparent 1px);
+  background: #009FE3;
 }

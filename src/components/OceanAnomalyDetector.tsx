@@ -46,13 +46,13 @@ export const OceanAnomalyDetector: React.FC<OceanAnomalyDetectorProps> = ({
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#E2ECEE]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#176B87]">
+            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#009FE3]">
               <Waves className="w-4 h-4" />
             </span>
-            <h2 className="text-base font-semibold text-[#123B4A]">
+            <h2 className="text-base font-semibold text-[#071B33]">
               Subsurface temperature anomaly
             </h2>
-            <span className="text-[11px] font-mono bg-[#F4F7F6] text-[#62757C] border border-[#D5E0E2] px-2 py-0.5 rounded">
+            <span className="text-[11px] font-mono bg-[#F4F9FC] text-[#62757C] border border-[#D5E0E2] px-2 py-0.5 rounded">
               Reference: 1991–2020 Climatology
             </span>
           </div>
@@ -62,7 +62,7 @@ export const OceanAnomalyDetector: React.FC<OceanAnomalyDetectorProps> = ({
         </div>
 
         {/* Lens Mode Toggle Buttons */}
-        <div className="flex items-center gap-1 bg-[#F4F7F6] p-1 rounded-md border border-[#D5E0E2] text-xs">
+        <div className="flex items-center gap-1 bg-[#F4F9FC] p-1 rounded-md border border-[#D5E0E2] text-xs">
           {[
             { id: 'surface', label: 'Surface (0–20m)' },
             { id: 'subsurface', label: 'Subsurface (25–150m)' },
@@ -73,8 +73,8 @@ export const OceanAnomalyDetector: React.FC<OceanAnomalyDetectorProps> = ({
               onClick={() => setAnomalyMode(m.id as any)}
               className={`px-2.5 py-1 rounded transition ${
                 anomalyMode === m.id
-                  ? 'bg-[#176B87] text-white font-medium shadow-xs'
-                  : 'text-[#62757C] hover:text-[#17313B]'
+                  ? 'bg-[#009FE3] text-white font-medium shadow-xs'
+                  : 'text-[#62757C] hover:text-[#071B33]'
               }`}
             >
               {m.label}
@@ -91,14 +91,14 @@ export const OceanAnomalyDetector: React.FC<OceanAnomalyDetectorProps> = ({
           </span>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-base font-bold text-[#123B4A] font-mono">
+              <span className="text-base font-bold text-[#071B33] font-mono">
                 +{diagnostic.subsurface_anomaly_mean} °C thermal difference
               </span>
               <span className="text-xs bg-white text-[#62757C] px-2 py-0.5 rounded border border-[#D5E0E2]">
                 Depth: {diagnostic.depth_range}
               </span>
             </div>
-            <p className="text-xs text-[#17313B] mt-1">
+            <p className="text-xs text-[#071B33] mt-1">
               Observation: "{diagnostic.warning}"
             </p>
             <p className="text-[11px] text-[#62757C] mt-0.5">
@@ -132,11 +132,11 @@ export const OceanAnomalyDetector: React.FC<OceanAnomalyDetectorProps> = ({
 
               return (
                 <div key={p.depth} className="p-2 rounded bg-white border border-[#E2ECEE] flex items-center justify-between text-xs">
-                  <div className="w-20 font-medium text-[#123B4A]">
+                  <div className="w-20 font-medium text-[#071B33]">
                     {p.depth === 0 ? 'Surface' : `${p.depth} m`}
                   </div>
 
-                  <div className="text-[#176B87] font-mono font-semibold w-24 text-center">
+                  <div className="text-[#009FE3] font-mono font-semibold w-24 text-center">
                     {p.current_temp.toFixed(2)} °C
                   </div>
 
@@ -149,8 +149,8 @@ export const OceanAnomalyDetector: React.FC<OceanAnomalyDetectorProps> = ({
                       isSignificant
                         ? 'bg-[#FFF3D6] text-[#D99A3D] border border-[#FDE3A2]'
                         : isPositive
-                        ? 'bg-[#DCEFEA] text-[#2A8C82] border border-[#BCE3DA]'
-                        : 'bg-[#D8E7EC] text-[#176B87] border border-[#BFD9E2]'
+                        ? 'bg-[#DCEFEA] text-[#009FE3] border border-[#BCE3DA]'
+                        : 'bg-[#D8E7EC] text-[#009FE3] border border-[#BFD9E2]'
                     }`}>
                       {isPositive ? `+${p.anomaly_celsius.toFixed(2)}` : p.anomaly_celsius.toFixed(2)} °C
                     </span>
@@ -165,17 +165,17 @@ export const OceanAnomalyDetector: React.FC<OceanAnomalyDetectorProps> = ({
         <div className="lg:col-span-4 bg-[#F8FAFA] p-4 rounded-md border border-[#D5E0E2] flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 pb-2 border-b border-[#E2ECEE]">
-              <span className="p-1 rounded bg-[#DCEFEA] text-[#176B87]">
+              <span className="p-1 rounded bg-[#DCEFEA] text-[#009FE3]">
                 <Thermometer className="w-3.5 h-3.5" />
               </span>
-              <h3 className="text-xs font-semibold text-[#123B4A]">
+              <h3 className="text-xs font-semibold text-[#071B33]">
                 Subsurface thermal mechanics
               </h3>
             </div>
 
             <div className="mt-3 space-y-2.5 text-xs text-[#62757C] leading-relaxed">
               <p>
-                Unlike surface warming easily captured by infrared radiometers, <strong className="text-[#17313B]">subsurface thermal accumulation (25–75 m)</strong> can develop beneath the mixed layer with minimal surface heat flux signatures.
+                Unlike surface warming easily captured by infrared radiometers, <strong className="text-[#071B33]">subsurface thermal accumulation (25–75 m)</strong> can develop beneath the mixed layer with minimal surface heat flux signatures.
               </p>
               <p>
                 OceanEmbed reconstructs this subsurface structure by analyzing sea surface height anomalies (indicating thermocline vertical displacement) and sea surface salinity (indicating density stratification), helping marine researchers track subsurface conditions.

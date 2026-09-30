@@ -26,13 +26,13 @@ export const ModelLab: React.FC = () => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#E2ECEE]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#176B87]">
+            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#009FE3]">
               <Cpu className="w-4 h-4" />
             </span>
-            <h2 className="text-base font-semibold text-[#123B4A]">
+            <h2 className="text-base font-semibold text-[#071B33]">
               Model architecture & benchmark
             </h2>
-            <span className="text-[11px] font-mono bg-[#F4F7F6] text-[#62757C] border border-[#D5E0E2] px-2 py-0.5 rounded">
+            <span className="text-[11px] font-mono bg-[#F4F9FC] text-[#62757C] border border-[#D5E0E2] px-2 py-0.5 rounded">
               Ablation & benchmark study
             </span>
           </div>
@@ -41,7 +41,7 @@ export const ModelLab: React.FC = () => {
           </p>
         </div>
 
-        <div className="text-xs font-mono text-[#176B87] bg-[#F4F7F6] px-3 py-1.5 rounded-md border border-[#D5E0E2]">
+        <div className="text-xs font-mono text-[#009FE3] bg-[#F4F9FC] px-3 py-1.5 rounded-md border border-[#D5E0E2]">
           Architecture: Latent Transformer + Attention-MLP Decoder
         </div>
       </div>
@@ -50,23 +50,23 @@ export const ModelLab: React.FC = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mt-4">
         <div className="bg-[#F8FAFA] p-3 rounded-md border border-[#D5E0E2]">
           <span className="text-[10px] text-[#62757C] uppercase block font-medium">Model architecture</span>
-          <span className="text-xs font-semibold text-[#123B4A] font-mono mt-1 block">ViT-Latent-2.4</span>
+          <span className="text-xs font-semibold text-[#071B33] font-mono mt-1 block">ViT-Latent-2.4</span>
         </div>
         <div className="bg-[#F8FAFA] p-3 rounded-md border border-[#D5E0E2]">
           <span className="text-[10px] text-[#62757C] uppercase block font-medium">Input channels</span>
-          <span className="text-xs font-semibold text-[#176B87] font-mono mt-1 block">5 Surface variables</span>
+          <span className="text-xs font-semibold text-[#009FE3] font-mono mt-1 block">5 Surface variables</span>
         </div>
         <div className="bg-[#F8FAFA] p-3 rounded-md border border-[#D5E0E2]">
           <span className="text-[10px] text-[#62757C] uppercase block font-medium">Embedding dim</span>
-          <span className="text-xs font-semibold text-[#123B4A] font-mono mt-1 block">128 Latent dim</span>
+          <span className="text-xs font-semibold text-[#071B33] font-mono mt-1 block">128 Latent dim</span>
         </div>
         <div className="bg-[#F8FAFA] p-3 rounded-md border border-[#D5E0E2]">
           <span className="text-[10px] text-[#62757C] uppercase block font-medium">Depth levels</span>
-          <span className="text-xs font-semibold text-[#2A8C82] font-mono mt-1 block">15 Coincident</span>
+          <span className="text-xs font-semibold text-[#009FE3] font-mono mt-1 block">15 Coincident</span>
         </div>
         <div className="bg-[#F8FAFA] p-3 rounded-md border border-[#D5E0E2]">
           <span className="text-[10px] text-[#62757C] uppercase block font-medium">Training profiles</span>
-          <span className="text-xs font-semibold text-[#123B4A] font-mono mt-1 block">114,000 ARGO</span>
+          <span className="text-xs font-semibold text-[#071B33] font-mono mt-1 block">114,000 ARGO</span>
         </div>
         <div className="bg-[#F8FAFA] p-3 rounded-md border border-[#D5E0E2]">
           <span className="text-[10px] text-[#62757C] uppercase block font-medium">Validation split</span>
@@ -74,7 +74,7 @@ export const ModelLab: React.FC = () => {
         </div>
         <div className="bg-[#F8FAFA] p-3 rounded-md border border-[#D5E0E2]">
           <span className="text-[10px] text-[#62757C] uppercase block font-medium">Test holdout</span>
-          <span className="text-xs font-semibold text-[#176B87] font-mono mt-1 block">14,250 Profiles</span>
+          <span className="text-xs font-semibold text-[#009FE3] font-mono mt-1 block">14,250 Profiles</span>
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export const ModelLab: React.FC = () => {
       <div className="mt-6 bg-[#F8FAFA] p-4 rounded-md border border-[#D5E0E2]">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-3 border-b border-[#E2ECEE]">
           <div>
-            <h3 className="text-xs font-semibold text-[#123B4A] uppercase tracking-wide">
+            <h3 className="text-xs font-semibold text-[#071B33] uppercase tracking-wide">
               Baseline Model vs OceanEmbed Performance Across Depth Strata
             </h3>
             <p className="text-xs text-[#62757C] mt-0.5">
@@ -95,7 +95,7 @@ export const ModelLab: React.FC = () => {
             <button
               onClick={() => setSelectedMetric('rmse')}
               className={`px-2.5 py-1 rounded transition cursor-pointer ${
-                selectedMetric === 'rmse' ? 'bg-[#176B87] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#17313B]'
+                selectedMetric === 'rmse' ? 'bg-[#009FE3] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#071B33]'
               }`}
             >
               RMSE (°C)
@@ -103,7 +103,7 @@ export const ModelLab: React.FC = () => {
             <button
               onClick={() => setSelectedMetric('mae')}
               className={`px-2.5 py-1 rounded transition cursor-pointer ${
-                selectedMetric === 'mae' ? 'bg-[#176B87] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#17313B]'
+                selectedMetric === 'mae' ? 'bg-[#009FE3] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#071B33]'
               }`}
             >
               MAE (°C)
@@ -111,7 +111,7 @@ export const ModelLab: React.FC = () => {
             <button
               onClick={() => setSelectedMetric('r2')}
               className={`px-2.5 py-1 rounded transition cursor-pointer ${
-                selectedMetric === 'r2' ? 'bg-[#176B87] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#17313B]'
+                selectedMetric === 'r2' ? 'bg-[#009FE3] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#071B33]'
               }`}
             >
               R² Score
@@ -129,7 +129,7 @@ export const ModelLab: React.FC = () => {
             return (
               <div key={band.band} className="bg-white p-3.5 rounded-md border border-[#D5E0E2]">
                 <div className="flex items-center justify-between text-xs mb-2">
-                  <span className="font-semibold text-[#123B4A]">{band.band}</span>
+                  <span className="font-semibold text-[#071B33]">{band.band}</span>
                   <span className="text-[#3D806C] font-semibold text-xs">
                     {selectedMetric === 'r2' ? `+${Math.round((modelVal - baselineVal) * 100)}% higher correlation` : `${improvementPct}% error reduction`}
                   </span>
@@ -140,7 +140,7 @@ export const ModelLab: React.FC = () => {
                   <div>
                     <div className="flex justify-between text-[11px] text-[#62757C] mb-1">
                       <span>Baseline (Climatology + MLP):</span>
-                      <span className="text-[#17313B] font-bold">{baselineVal}{selectedMetric !== 'r2' ? ' °C' : ''}</span>
+                      <span className="text-[#071B33] font-bold">{baselineVal}{selectedMetric !== 'r2' ? ' °C' : ''}</span>
                     </div>
                     <div className="w-full h-1.5 bg-[#E2ECEE] rounded-full overflow-hidden">
                       <div
@@ -152,13 +152,13 @@ export const ModelLab: React.FC = () => {
 
                   {/* OceanEmbed bar */}
                   <div>
-                    <div className="flex justify-between text-[11px] text-[#2A8C82] mb-1 font-semibold">
+                    <div className="flex justify-between text-[11px] text-[#009FE3] mb-1 font-semibold">
                       <span>OceanEmbed (Latent Transformer):</span>
-                      <span className="text-[#123B4A] font-bold">{modelVal}{selectedMetric !== 'r2' ? ' °C' : ''}</span>
+                      <span className="text-[#071B33] font-bold">{modelVal}{selectedMetric !== 'r2' ? ' °C' : ''}</span>
                     </div>
                     <div className="w-full h-1.5 bg-[#E2ECEE] rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-[#2A8C82] rounded-full"
+                        className="h-full bg-[#009FE3] rounded-full"
                         style={{ width: `${Math.min(100, (modelVal / 1.5) * 100)}%` }}
                       />
                     </div>

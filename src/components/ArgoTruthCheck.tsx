@@ -49,13 +49,13 @@ export const ArgoTruthCheck: React.FC<ArgoTruthCheckProps> = ({
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#E2ECEE]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#176B87]">
+            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#009FE3]">
               <Compass className="w-4 h-4" />
             </span>
-            <h2 className="text-base font-semibold text-[#123B4A]">
+            <h2 className="text-base font-semibold text-[#071B33]">
               ARGO in-situ validation
             </h2>
-            <span className="text-[11px] font-mono bg-[#F4F7F6] text-[#62757C] border border-[#D5E0E2] px-2 py-0.5 rounded">
+            <span className="text-[11px] font-mono bg-[#F4F9FC] text-[#62757C] border border-[#D5E0E2] px-2 py-0.5 rounded">
               Float: {argoData?.float_metadata.wmo_id || 'WMO-2902784'}
             </span>
           </div>
@@ -68,7 +68,7 @@ export const ArgoTruthCheck: React.FC<ArgoTruthCheckProps> = ({
         <button
           onClick={handleValidate}
           disabled={isValidating}
-          className="flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-[#176B87] hover:bg-[#123B4A] text-white font-medium text-xs transition cursor-pointer disabled:opacity-50"
+          className="flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-[#009FE3] hover:bg-[#071B33] text-white font-medium text-xs transition cursor-pointer disabled:opacity-50"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isValidating ? 'animate-spin' : ''}`} />
           <span>{isValidating ? 'Collocating float data...' : 'Compare with ARGO'}</span>
@@ -77,9 +77,9 @@ export const ArgoTruthCheck: React.FC<ArgoTruthCheckProps> = ({
 
       {/* Validation Flash Toast */}
       {validationSuccess && (
-        <div className="mt-4 p-3 bg-[#DCEFEA] border border-[#BCE3DA] rounded-md flex items-center justify-between text-xs text-[#123B4A]">
+        <div className="mt-4 p-3 bg-[#DCEFEA] border border-[#BCE3DA] rounded-md flex items-center justify-between text-xs text-[#071B33]">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-[#2A8C82]" />
+            <CheckCircle2 className="w-4 h-4 text-[#009FE3]" />
             <span className="font-semibold">Validation confirmed:</span>
             <span>Profile collocation statistically verified (RMSE = {metrics.rmse}°C, Pearson r = {metrics.correlation_r}). Meets WMO research standard.</span>
           </div>
@@ -89,41 +89,41 @@ export const ArgoTruthCheck: React.FC<ArgoTruthCheckProps> = ({
 
       {/* 4 Scientific Evaluation Metrics */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
-        <div className="bg-[#F4F7F6] p-3.5 rounded-md border border-[#D5E0E2]">
+        <div className="bg-[#F4F9FC] p-3.5 rounded-md border border-[#D5E0E2]">
           <span className="text-[11px] text-[#62757C] block">
             Root Mean Square Error (RMSE)
           </span>
-          <div className="text-xl font-bold text-[#123B4A] font-mono mt-1">
+          <div className="text-xl font-bold text-[#071B33] font-mono mt-1">
             {metrics.rmse} °C
           </div>
           <span className="text-[10px] text-[#62757C] mt-0.5 block">Target: &lt; 0.50 °C</span>
         </div>
 
-        <div className="bg-[#F4F7F6] p-3.5 rounded-md border border-[#D5E0E2]">
+        <div className="bg-[#F4F9FC] p-3.5 rounded-md border border-[#D5E0E2]">
           <span className="text-[11px] text-[#62757C] block">
             Mean Absolute Error (MAE)
           </span>
-          <div className="text-xl font-bold text-[#2A8C82] font-mono mt-1">
+          <div className="text-xl font-bold text-[#009FE3] font-mono mt-1">
             {metrics.mae} °C
           </div>
           <span className="text-[10px] text-[#62757C] mt-0.5 block">Mean absolute residual</span>
         </div>
 
-        <div className="bg-[#F4F7F6] p-3.5 rounded-md border border-[#D5E0E2]">
+        <div className="bg-[#F4F9FC] p-3.5 rounded-md border border-[#D5E0E2]">
           <span className="text-[11px] text-[#62757C] block">
             Systematic bias
           </span>
-          <div className="text-xl font-bold text-[#176B87] font-mono mt-1">
+          <div className="text-xl font-bold text-[#009FE3] font-mono mt-1">
             {metrics.bias > 0 ? `+${metrics.bias}` : metrics.bias} °C
           </div>
           <span className="text-[10px] text-[#62757C] mt-0.5 block">Directional offset</span>
         </div>
 
-        <div className="bg-[#F4F7F6] p-3.5 rounded-md border border-[#D5E0E2]">
+        <div className="bg-[#F4F9FC] p-3.5 rounded-md border border-[#D5E0E2]">
           <span className="text-[11px] text-[#62757C] block">
             Pearson correlation (r)
           </span>
-          <div className="text-xl font-bold text-[#123B4A] font-mono mt-1">
+          <div className="text-xl font-bold text-[#071B33] font-mono mt-1">
             {metrics.correlation_r}
           </div>
           <span className="text-[10px] text-[#62757C] mt-0.5 block">R² = {metrics.r_squared}</span>
@@ -134,34 +134,34 @@ export const ArgoTruthCheck: React.FC<ArgoTruthCheckProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
         {/* Left Column: Structured Comparison Table */}
         <div className="lg:col-span-7 bg-[#F8FAFA] rounded-md border border-[#D5E0E2] overflow-hidden">
-          <div className="p-3 bg-white border-b border-[#D5E0E2] flex items-center justify-between text-xs text-[#123B4A] font-medium">
+          <div className="p-3 bg-white border-b border-[#D5E0E2] flex items-center justify-between text-xs text-[#071B33] font-medium">
             <span>Depth-by-depth observation comparison</span>
             <span className="text-[11px] text-[#62757C]">15 depth strata</span>
           </div>
 
           <div className="overflow-x-auto max-h-[340px]">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#F4F7F6] text-[#62757C] uppercase text-[10px] sticky top-0 border-b border-[#D5E0E2]">
+              <thead className="bg-[#F4F9FC] text-[#62757C] uppercase text-[10px] sticky top-0 border-b border-[#D5E0E2]">
                 <tr>
                   <th className="py-2.5 px-3">Depth</th>
-                  <th className="py-2.5 px-3 text-[#2A8C82]">OceanEmbed</th>
-                  <th className="py-2.5 px-3 text-[#123B4A]">ARGO In-Situ</th>
+                  <th className="py-2.5 px-3 text-[#009FE3]">OceanEmbed</th>
+                  <th className="py-2.5 px-3 text-[#071B33]">ARGO In-Situ</th>
                   <th className="py-2.5 px-3">Residual (ΔT)</th>
                   <th className="py-2.5 px-3">Uncertainty</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E2ECEE] text-[#17313B]">
+              <tbody className="divide-y divide-[#E2ECEE] text-[#071B33]">
                 {table.map((row) => {
                   const isSmallError = Math.abs(row.error_celsius) <= 0.25;
                   return (
                     <tr key={row.depth} className="hover:bg-white transition font-mono">
-                      <td className="py-2 px-3 font-medium text-[#123B4A]">
+                      <td className="py-2 px-3 font-medium text-[#071B33]">
                         {row.depth === 0 ? 'Surface' : `${row.depth} m`}
                       </td>
-                      <td className="py-2 px-3 text-[#2A8C82] font-semibold">
+                      <td className="py-2 px-3 text-[#009FE3] font-semibold">
                         {row.ai_reconstructed.toFixed(2)} °C
                       </td>
-                      <td className="py-2 px-3 text-[#123B4A] font-semibold">
+                      <td className="py-2 px-3 text-[#071B33] font-semibold">
                         {row.argo_observed.toFixed(2)} °C
                       </td>
                       <td className={`py-2 px-3 font-semibold ${
@@ -183,7 +183,7 @@ export const ArgoTruthCheck: React.FC<ArgoTruthCheckProps> = ({
         {/* Right Column: Visual Profile Comparison Graph */}
         <div className="lg:col-span-5 bg-[#F8FAFA] p-4 rounded-md border border-[#D5E0E2] flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-2 border-b border-[#E2ECEE] text-xs text-[#123B4A] font-medium">
+            <div className="flex items-center justify-between pb-2 border-b border-[#E2ECEE] text-xs text-[#071B33] font-medium">
               <span>Temperature with depth comparison</span>
               <span className="text-[11px] text-[#62757C]">Profile T(z)</span>
             </div>
@@ -216,7 +216,7 @@ export const ArgoTruthCheck: React.FC<ArgoTruthCheckProps> = ({
                   return (
                     <>
                       {/* OceanEmbed solid teal line */}
-                      <path d={`M ${aiPoints}`} fill="none" stroke="#2A8C82" strokeWidth="2.5" />
+                      <path d={`M ${aiPoints}`} fill="none" stroke="#009FE3" strokeWidth="2.5" />
 
                       {/* ARGO dark navy dots */}
                       {table.map(r => (
@@ -225,7 +225,7 @@ export const ArgoTruthCheck: React.FC<ArgoTruthCheckProps> = ({
                           cx={xCoord(r.argo_observed)}
                           cy={yCoord(r.depth)}
                           r="3.5"
-                          fill="#123B4A"
+                          fill="#071B33"
                           stroke="#FFFFFF"
                           strokeWidth="1.5"
                         />
@@ -237,11 +237,11 @@ export const ArgoTruthCheck: React.FC<ArgoTruthCheckProps> = ({
             </div>
 
             <div className="flex items-center justify-between text-xs text-[#62757C] pt-2 border-t border-[#E2ECEE]">
-              <span className="flex items-center gap-1.5 text-[#2A8C82] font-medium">
-                <span className="w-3 h-0.5 bg-[#2A8C82]" /> OceanEmbed reconstruction
+              <span className="flex items-center gap-1.5 text-[#009FE3] font-medium">
+                <span className="w-3 h-0.5 bg-[#009FE3]" /> OceanEmbed reconstruction
               </span>
-              <span className="flex items-center gap-1.5 text-[#123B4A] font-medium">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#123B4A]" /> ARGO observation
+              <span className="flex items-center gap-1.5 text-[#071B33] font-medium">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#071B33]" /> ARGO observation
               </span>
             </div>
           </div>

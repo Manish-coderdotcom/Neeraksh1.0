@@ -34,13 +34,25 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({
   };
 
   // Compute Baseline vs Counterfactual profile
-  const depths = [0, 10, 20, 30, 50, 75, 100, 150, 200, 300, 500, 1000];
-  const baselineTemps = reconstructionData?.depth_profile.map(p => p.temperature) || [
-    29.4, 29.3, 29.1, 28.9, 28.6, 27.4, 24.3, 18.6, 13.2, 10.1, 7.7, 5.2
-  ];
+  // Keyed off each sample's own depth: the old fixed 12-entry `depths` array was
+  // indexed by a 15-entry depth_profile, so depths[12..14] were undefined, yCoord
+  // returned NaN, and the browser discarded the whole SVG `d` attribute.
+  const STANDARD_DEPTHS = [0, 5, 10, 20, 30, 50, 75, 100, 125, 150, 200, 300, 500, 700, 1000];
+  const FALLBACK_TEMPS: Record<number, number> = {
+    0: 29.4, 5: 29.35, 10: 29.3, 20: 29.1, 30: 28.9, 50: 28.6, 75: 27.4,
+    100: 24.3, 125: 21.4, 150: 18.6, 200: 13.2, 300: 10.1, 500: 7.7, 700: 6.2, 1000: 5.2
+  };
+
+  const depths = STANDARD_DEPTHS;
+  const apiTempsByDepth = new Map(
+    (reconstructionData?.depth_profile ?? []).map(p => [p.depth, p.temperature])
+  );
+  const baselineTemps = STANDARD_DEPTHS.map(
+    d => apiTempsByDepth.get(d) ?? FALLBACK_TEMPS[d] ?? 20
+  );
 
   const simulatedTemps = depths.map((d, i) => {
-    const base = baselineTemps[i] || 20;
+    const base = baselineTemps[i] ?? 20;
     // Physical response to counterfactual perturbations:
     // SST warms upper 40m
     const surfaceEffect = sstOffset * Math.exp(-d / 45.0);
@@ -265,7 +277,10 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps> = ({
           <div className="p-3 bg-[#030713] rounded-lg border border-slate-800 text-[11px] font-mono text-slate-400 mt-2 flex justify-between items-center">
             <span>Surface Delta: {sstOffset > 0 ? `+${sstOffset}` : sstOffset}°C</span>
             <span className="text-purple-300 font-bold">
-              Subsurface Shift at 75m: +{((simulatedTemps[5] || 25) - (baselineTemps[5] || 25)).toFixed(2)}°C
+              Subsurface Shift at 75m: +{(() => {
+                const i75 = STANDARD_DEPTHS.indexOf(75);
+                return ((simulatedTemps[i75] ?? 25) - (baselineTemps[i75] ?? 25)).toFixed(2);
+              })()}°C
             </span>
           </div>
         </div>

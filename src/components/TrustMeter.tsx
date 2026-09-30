@@ -79,15 +79,15 @@ export const TrustMeter: React.FC<TrustMeterProps> = ({
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#E2ECEE]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#176B87]">
+            <span className="p-1.5 rounded bg-[#DCEFEA] text-[#009FE3]">
               <ShieldCheck className="w-4 h-4" />
             </span>
-            <h2 className="text-base font-semibold text-[#123B4A]">
+            <h2 className="text-base font-semibold text-[#071B33]">
               Uncertainty & prediction confidence
             </h2>
             <span className={`text-[11px] font-mono px-2 py-0.5 rounded font-medium ${
               confidenceScore >= 85
-                ? 'bg-[#DCEFEA] text-[#2A8C82] border border-[#BCE3DA]'
+                ? 'bg-[#DCEFEA] text-[#009FE3] border border-[#BCE3DA]'
                 : 'bg-[#FFF3D6] text-[#D99A3D] border border-[#FDE3A2]'
             }`}>
               {confidenceTier}
@@ -99,15 +99,15 @@ export const TrustMeter: React.FC<TrustMeterProps> = ({
         </div>
 
         <div className="text-xs font-mono text-[#62757C]">
-          Selected depth: <span className="text-[#123B4A] font-semibold">{selectedDepth} m</span>
+          Selected depth: <span className="text-[#071B33] font-semibold">{selectedDepth} m</span>
         </div>
       </div>
 
       {/* Scientific Notice */}
-      <div className="mt-4 p-3 bg-[#F8FAFA] border border-[#D5E0E2] rounded-md flex items-start gap-2.5 text-xs text-[#17313B]">
-        <HelpCircle className="w-4 h-4 text-[#176B87] shrink-0 mt-0.5" />
+      <div className="mt-4 p-3 bg-[#F8FAFA] border border-[#D5E0E2] rounded-md flex items-start gap-2.5 text-xs text-[#071B33]">
+        <HelpCircle className="w-4 h-4 text-[#009FE3] shrink-0 mt-0.5" />
         <p className="leading-relaxed">
-          <span className="font-semibold text-[#123B4A]">Scientific context: </span>
+          <span className="font-semibold text-[#071B33]">Scientific context: </span>
           Statistical confidence reflects observational input quality, proximity to coincident ARGO floats, and neural ensemble consistency, providing transparent bounds for operational oceanographic analysis.
         </p>
       </div>
@@ -118,7 +118,7 @@ export const TrustMeter: React.FC<TrustMeterProps> = ({
           <span className="text-[11px] text-[#62757C] block font-medium">
             Reconstructed temperature
           </span>
-          <div className="text-2xl font-bold text-[#123B4A] font-mono mt-1">
+          <div className="text-2xl font-bold text-[#071B33] font-mono mt-1">
             {currentTemp.toFixed(2)} °C
           </div>
           <span className="text-[11px] text-[#62757C] mt-0.5 block">
@@ -130,7 +130,7 @@ export const TrustMeter: React.FC<TrustMeterProps> = ({
           <span className="text-[11px] text-[#62757C] block font-medium">
             Uncertainty interval (±1σ)
           </span>
-          <div className="text-2xl font-bold text-[#176B87] font-mono mt-1">
+          <div className="text-2xl font-bold text-[#009FE3] font-mono mt-1">
             ±{uncertainty.toFixed(2)} °C
           </div>
           <span className="text-[11px] text-[#62757C] mt-0.5 block">
@@ -142,10 +142,10 @@ export const TrustMeter: React.FC<TrustMeterProps> = ({
           <span className="text-[11px] text-[#62757C] block font-medium">
             Confidence score
           </span>
-          <div className="text-2xl font-bold text-[#2A8C82] font-mono mt-1">
+          <div className="text-2xl font-bold text-[#009FE3] font-mono mt-1">
             {confidenceScore}%
           </div>
-          <span className="text-[11px] text-[#2A8C82] font-medium mt-0.5 block">
+          <span className="text-[11px] text-[#009FE3] font-medium mt-0.5 block">
             {confidenceTier}
           </span>
         </div>
@@ -165,17 +165,17 @@ export const TrustMeter: React.FC<TrustMeterProps> = ({
                 <div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1.5">
-                      <span className="p-1 rounded bg-white text-[#176B87] border border-[#D5E0E2]">
+                      <span className="p-1 rounded bg-white text-[#009FE3] border border-[#D5E0E2]">
                         <Icon className="w-3.5 h-3.5" />
                       </span>
-                      <h4 className="text-xs font-semibold text-[#123B4A]">{f.title}</h4>
+                      <h4 className="text-xs font-semibold text-[#071B33]">{f.title}</h4>
                     </div>
                     <span className="text-[10px] font-mono text-[#62757C] bg-white px-1.5 py-0.5 rounded border border-[#D5E0E2]">
                       {f.score}%
                     </span>
                   </div>
 
-                  <div className="text-xs font-medium text-[#17313B] mt-2 font-mono">
+                  <div className="text-xs font-medium text-[#071B33] mt-2 font-mono">
                     {f.value}
                   </div>
 
@@ -186,7 +186,7 @@ export const TrustMeter: React.FC<TrustMeterProps> = ({
 
                 <div className="w-full h-1.5 bg-[#E2ECEE] rounded-full overflow-hidden mt-3">
                   <div
-                    className="h-full bg-[#176B87] rounded-full"
+                    className="h-full bg-[#009FE3] rounded-full"
                     style={{ width: `${f.score}%` }}
                   />
                 </div>

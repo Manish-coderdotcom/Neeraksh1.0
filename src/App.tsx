@@ -19,6 +19,7 @@ import { SubsurfaceDigitalTwin } from './components/SubsurfaceDigitalTwin';
 import { AiXRay } from './components/AiXRay';
 import { EmbeddingConstellation } from './components/EmbeddingConstellation';
 import { OceanMemory } from './components/OceanMemory';
+import { TimeMachine } from './components/TimeMachine';
 import { ThermoclineRadar } from './components/ThermoclineRadar';
 import { TrustMeter } from './components/TrustMeter';
 import { ArgoTruthCheck } from './components/ArgoTruthCheck';
@@ -82,7 +83,7 @@ export const App: React.FC = () => {
   }, [selectedRegion]);
 
   return (
-    <div className="min-h-screen bg-[#F4F7F6] text-[#17313B] flex flex-col font-sans selection:bg-[#DCEFEA] selection:text-[#123B4A]">
+    <div className="min-h-screen bg-[#F4F9FC] text-[#071B33] flex flex-col font-sans selection:bg-[#DCEFEA] selection:text-[#071B33]">
       {/* 4. Top Header & Navigation */}
       <Navbar
         activeTab={activeTab}
@@ -98,7 +99,7 @@ export const App: React.FC = () => {
         {/* Subtle loading indicator */}
         {isLoading && (
           <div className="w-full h-1 bg-[#D5E0E2] rounded-full overflow-hidden">
-            <div className="h-full bg-[#2A8C82] animate-pulse w-full" />
+            <div className="h-full bg-[#009FE3] animate-pulse w-full" />
           </div>
         )}
 
@@ -132,20 +133,20 @@ export const App: React.FC = () => {
             {/* 14. Unique Feature — Human-Readable Insights */}
             <div className="bg-white border border-[#D5E0E2] rounded-lg p-5 shadow-sm">
               <div className="flex items-start gap-3.5">
-                <div className="p-2 rounded bg-[#DCEFEA] text-[#176B87] shrink-0 mt-0.5">
+                <div className="p-2 rounded bg-[#DCEFEA] text-[#009FE3] shrink-0 mt-0.5">
                   <Info className="w-5 h-5" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-sm font-semibold text-[#123B4A]">
+                  <h3 className="text-sm font-semibold text-[#071B33]">
                     What does this mean?
                   </h3>
-                  <p className="text-xs text-[#17313B] leading-relaxed">
+                  <p className="text-xs text-[#071B33] leading-relaxed">
                     The reconstructed profile is approximately 2.1 °C warmer than the selected climatological baseline between 25 and 60 m depth. This places several temperature-sensitive species outside their preferred thermal range and alters upper ocean stratification, potentially affecting vertical nutrient flux and pelagic marine habitat distributions.
                   </p>
                   <div>
                     <button
                       onClick={() => setIsMethodologyOpen(true)}
-                      className="text-xs text-[#176B87] hover:text-[#123B4A] font-medium inline-flex items-center gap-1 transition cursor-pointer"
+                      className="text-xs text-[#009FE3] hover:text-[#071B33] font-medium inline-flex items-center gap-1 transition cursor-pointer"
                     >
                       <span>View methodology</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -175,14 +176,14 @@ export const App: React.FC = () => {
             <div className="bg-white border border-[#D5E0E2] rounded-lg p-5 shadow-sm">
               <div className="pb-3 border-b border-[#E2ECEE] flex items-center justify-between">
                 <div>
-                  <h3 className="text-sm font-semibold text-[#123B4A]">
+                  <h3 className="text-sm font-semibold text-[#071B33]">
                     How OceanEmbed works
                   </h3>
                   <p className="text-xs text-[#62757C] mt-0.5">
                     From multi-satellite surface observations to calibrated 3D subsurface temperature profiles
                   </p>
                 </div>
-                <span className="text-[11px] font-mono text-[#62757C] bg-[#F4F7F6] px-2 py-0.5 rounded border border-[#D5E0E2]">
+                <span className="text-[11px] font-mono text-[#62757C] bg-[#F4F9FC] px-2 py-0.5 rounded border border-[#D5E0E2]">
                   Process flow
                 </span>
               </div>
@@ -190,13 +191,13 @@ export const App: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mt-4">
                 <div 
                   onClick={() => setActiveTab('dataqc')}
-                  className="p-3.5 rounded-md bg-[#F8FAFA] border border-[#D5E0E2] hover:border-[#176B87] cursor-pointer transition flex flex-col justify-between"
+                  className="p-3.5 rounded-md bg-[#F8FAFA] border border-[#D5E0E2] hover:border-[#009FE3] cursor-pointer transition flex flex-col justify-between"
                 >
                   <div>
-                    <div className="w-7 h-7 rounded-full bg-[#123B4A] text-white flex items-center justify-center text-xs font-semibold mb-2.5">
+                    <div className="w-7 h-7 rounded-full bg-[#071B33] text-white flex items-center justify-center text-xs font-semibold mb-2.5">
                       1
                     </div>
-                    <h4 className="text-xs font-semibold text-[#123B4A]">
+                    <h4 className="text-xs font-semibold text-[#071B33]">
                       Satellite observations
                     </h4>
                     <p className="text-[11px] text-[#62757C] mt-1.5 leading-relaxed">
@@ -207,13 +208,13 @@ export const App: React.FC = () => {
 
                 <div 
                   onClick={() => setActiveTab('dataqc')}
-                  className="p-3.5 rounded-md bg-[#F8FAFA] border border-[#D5E0E2] hover:border-[#176B87] cursor-pointer transition flex flex-col justify-between"
+                  className="p-3.5 rounded-md bg-[#F8FAFA] border border-[#D5E0E2] hover:border-[#009FE3] cursor-pointer transition flex flex-col justify-between"
                 >
                   <div>
-                    <div className="w-7 h-7 rounded-full bg-[#176B87] text-white flex items-center justify-center text-xs font-semibold mb-2.5">
+                    <div className="w-7 h-7 rounded-full bg-[#009FE3] text-white flex items-center justify-center text-xs font-semibold mb-2.5">
                       2
                     </div>
-                    <h4 className="text-xs font-semibold text-[#123B4A]">
+                    <h4 className="text-xs font-semibold text-[#071B33]">
                       Data preprocessing
                     </h4>
                     <p className="text-[11px] text-[#62757C] mt-1.5 leading-relaxed">
@@ -224,13 +225,13 @@ export const App: React.FC = () => {
 
                 <div 
                   onClick={() => setActiveTab('embedding')}
-                  className="p-3.5 rounded-md bg-[#F8FAFA] border border-[#D5E0E2] hover:border-[#176B87] cursor-pointer transition flex flex-col justify-between"
+                  className="p-3.5 rounded-md bg-[#F8FAFA] border border-[#D5E0E2] hover:border-[#009FE3] cursor-pointer transition flex flex-col justify-between"
                 >
                   <div>
-                    <div className="w-7 h-7 rounded-full bg-[#2A8C82] text-white flex items-center justify-center text-xs font-semibold mb-2.5">
+                    <div className="w-7 h-7 rounded-full bg-[#009FE3] text-white flex items-center justify-center text-xs font-semibold mb-2.5">
                       3
                     </div>
-                    <h4 className="text-xs font-semibold text-[#123B4A]">
+                    <h4 className="text-xs font-semibold text-[#071B33]">
                       Ocean embedding
                     </h4>
                     <p className="text-[11px] text-[#62757C] mt-1.5 leading-relaxed">
@@ -241,13 +242,13 @@ export const App: React.FC = () => {
 
                 <div 
                   onClick={() => setActiveTab('twin')}
-                  className="p-3.5 rounded-md bg-[#F8FAFA] border border-[#D5E0E2] hover:border-[#176B87] cursor-pointer transition flex flex-col justify-between"
+                  className="p-3.5 rounded-md bg-[#F8FAFA] border border-[#D5E0E2] hover:border-[#009FE3] cursor-pointer transition flex flex-col justify-between"
                 >
                   <div>
-                    <div className="w-7 h-7 rounded-full bg-[#176B87] text-white flex items-center justify-center text-xs font-semibold mb-2.5">
+                    <div className="w-7 h-7 rounded-full bg-[#009FE3] text-white flex items-center justify-center text-xs font-semibold mb-2.5">
                       4
                     </div>
-                    <h4 className="text-xs font-semibold text-[#123B4A]">
+                    <h4 className="text-xs font-semibold text-[#071B33]">
                       Subsurface reconstruction
                     </h4>
                     <p className="text-[11px] text-[#62757C] mt-1.5 leading-relaxed">
@@ -258,13 +259,13 @@ export const App: React.FC = () => {
 
                 <div 
                   onClick={() => setActiveTab('argo')}
-                  className="p-3.5 rounded-md bg-[#F8FAFA] border border-[#D5E0E2] hover:border-[#176B87] cursor-pointer transition flex flex-col justify-between"
+                  className="p-3.5 rounded-md bg-[#F8FAFA] border border-[#D5E0E2] hover:border-[#009FE3] cursor-pointer transition flex flex-col justify-between"
                 >
                   <div>
-                    <div className="w-7 h-7 rounded-full bg-[#123B4A] text-white flex items-center justify-center text-xs font-semibold mb-2.5">
+                    <div className="w-7 h-7 rounded-full bg-[#071B33] text-white flex items-center justify-center text-xs font-semibold mb-2.5">
                       5
                     </div>
-                    <h4 className="text-xs font-semibold text-[#123B4A]">
+                    <h4 className="text-xs font-semibold text-[#071B33]">
                       ARGO validation
                     </h4>
                     <p className="text-[11px] text-[#62757C] mt-1.5 leading-relaxed">
@@ -277,28 +278,28 @@ export const App: React.FC = () => {
 
             {/* 16. Data Sources Panel */}
             <div className="bg-white border border-[#D5E0E2] rounded-lg p-5 shadow-sm">
-              <h3 className="text-xs font-semibold text-[#123B4A] uppercase tracking-wide mb-3">
+              <h3 className="text-xs font-semibold text-[#071B33] uppercase tracking-wide mb-3">
                 Data sources
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-                <div className="p-3 bg-[#F4F7F6] rounded-md border border-[#D5E0E2]">
+                <div className="p-3 bg-[#F4F9FC] rounded-md border border-[#D5E0E2]">
                   <span className="text-[11px] text-[#62757C] block">Satellite</span>
-                  <span className="font-semibold text-[#123B4A] mt-0.5 block">Sentinel-3</span>
+                  <span className="font-semibold text-[#071B33] mt-0.5 block">Sentinel-3</span>
                   <span className="text-[11px] text-[#62757C]">SST, Altimetry (Jason), SMAP SSS</span>
                 </div>
-                <div className="p-3 bg-[#F4F7F6] rounded-md border border-[#D5E0E2]">
+                <div className="p-3 bg-[#F4F9FC] rounded-md border border-[#D5E0E2]">
                   <span className="text-[11px] text-[#62757C] block">In-situ</span>
-                  <span className="font-semibold text-[#123B4A] mt-0.5 block">ARGO</span>
+                  <span className="font-semibold text-[#071B33] mt-0.5 block">ARGO</span>
                   <span className="text-[11px] text-[#62757C]">Autonomous profiling float CTD observations</span>
                 </div>
-                <div className="p-3 bg-[#F4F7F6] rounded-md border border-[#D5E0E2]">
+                <div className="p-3 bg-[#F4F9FC] rounded-md border border-[#D5E0E2]">
                   <span className="text-[11px] text-[#62757C] block">Reference</span>
-                  <span className="font-semibold text-[#123B4A] mt-0.5 block">Ocean climatology</span>
+                  <span className="font-semibold text-[#071B33] mt-0.5 block">Ocean climatology</span>
                   <span className="text-[11px] text-[#62757C]">1991–2020 30-year climatological baseline</span>
                 </div>
-                <div className="p-3 bg-[#F4F7F6] rounded-md border border-[#D5E0E2]">
+                <div className="p-3 bg-[#F4F9FC] rounded-md border border-[#D5E0E2]">
                   <span className="text-[11px] text-[#62757C] block">Model</span>
-                  <span className="font-semibold text-[#123B4A] mt-0.5 block">OceanEmbed reconstruction</span>
+                  <span className="font-semibold text-[#071B33] mt-0.5 block">OceanEmbed reconstruction</span>
                   <span className="text-[11px] text-[#62757C]">Subsurface temperature profile estimation</span>
                 </div>
               </div>
@@ -365,6 +366,19 @@ export const App: React.FC = () => {
               selectedRegion={selectedRegion}
             />
             <EmbeddingConstellation />
+          </div>
+        )}
+
+        {/* ============================================================== */}
+        {/* TAB: TIME MACHINE */}
+        {/* ============================================================== */}
+        {activeTab === 'timemachine' && (
+          <div className="space-y-8 animate-in fade-in duration-200">
+            <TimeMachine
+              selectedYear={selectedYear}
+              setSelectedYear={setSelectedYear}
+              reconstructionData={reconstructionData}
+            />
           </div>
         )}
 
@@ -511,7 +525,7 @@ export const App: React.FC = () => {
               <img src="/logo.jpg" alt="Team Neeraksh Logo" className="w-full h-full object-cover" />
             </div>
             <div>
-              <span className="text-sm font-semibold text-[#123B4A]">OceanEmbed / Neeraksh</span>
+              <span className="text-sm font-semibold text-[#071B33]">OceanEmbed / Neeraksh</span>
               <span className="text-[#62757C] block text-[11px]">Subsurface ocean temperature reconstruction platform</span>
             </div>
           </div>
@@ -529,14 +543,14 @@ export const App: React.FC = () => {
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setIsMethodologyOpen(true)}
-              className="text-[#176B87] hover:text-[#123B4A] transition cursor-pointer"
+              className="text-[#009FE3] hover:text-[#071B33] transition cursor-pointer"
             >
               Data & Methodology
             </button>
             <span className="text-[#D5E0E2]">|</span>
             <button
               onClick={() => setIsRevealOpen(true)}
-              className="text-[#176B87] hover:text-[#123B4A] transition cursor-pointer"
+              className="text-[#009FE3] hover:text-[#071B33] transition cursor-pointer"
             >
               Reconstruction flow
             </button>
@@ -544,7 +558,6 @@ export const App: React.FC = () => {
         </div>
 
         <div className="max-w-7xl mx-auto mt-6 pt-4 border-t border-[#E2ECEE] text-[11px] text-[#62757C] text-center flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>Demonstration platform for operational subsurface temperature reconstruction. Demo dataset.</span>
           <span>Version 2.4.0 • Research release</span>
         </div>
       </footer>

@@ -4,9 +4,9 @@ Satellite Embedding-Based Deep Learning Framework for Reconstruction of Subsurfa
 from Surface Satellite Observations.
 """
 
-from fastapi import FastAPI, Query, HTTPException
+from fastapi import FastAPI, Query, HTTPException, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional, Dict, Any
 import numpy as np
 import math
@@ -29,6 +29,48 @@ app.add_middleware(
 
 # Standard Oceanographic 15-depth vertical grid (meters)
 STANDARD_DEPTHS = [0, 5, 10, 20, 30, 50, 75, 100, 125, 150, 200, 300, 500, 700, 1000]
+
+
+# Query parameters that feed the physical model and must stay finite.
+FLOAT_QUERY_PARAMS = {
+    "sst_offset", "sss_offset", "wind_ratio", "ssh_offset",
+    "missing_rate", "lambda_physics", "lambda_smooth", "lambda_grad",
+}
+
+
+def reject_non_finite_params(request: Request) -> None:
+    """Pydantic accepts the literals inf/nan for float query params. They pass
+    validation, propagate through the profile maths, and then make
+    json.dumps(allow_nan=False) raise inside the response renderer -> HTTP 500.
+    Reject them up front so the caller gets a 422 instead."""
+    for key, value in request.query_params.multi_items():
+        if key not in FLOAT_QUERY_PARAMS:
+            continue
+        try:
+            parsed = float(value)
+        except (TypeError, ValueError):
+            raise HTTPException(
+                status_code=422, detail=f"Query parameter '{key}' must be numeric."
+            )
+        if not math.isfinite(parsed):
+            raise HTTPException(
+                status_code=422,
+                detail=f"Query parameter '{key}' must be a finite number.",
+            )
+
+
+@app.get("/api/health")
+def get_health():
+    """Liveness probe so the frontend can report whether it is reading live
+    backend telemetry or falling back to its bundled offline dataset."""
+    return {
+        "status": "ok",
+        "service": "neeraksh-backend",
+        "version": "2.4.0-research",
+        "regions_available": list(REGIONS.keys()),
+        "depth_grid": STANDARD_DEPTHS,
+        "timestamp": datetime.now().astimezone().isoformat(),
+    }
 
 # Scientific Region Baselines (Realistic Physical Oceanography)
 REGIONS = {
@@ -119,7 +161,9 @@ def compute_physical_profile(region_key: str, sst_offset: float = 0.0, sss_offse
         temp_recon = round(float(temp_base), 2)
         
         # Uncertainty estimation: higher in thermocline (where gradients are steepest) and deep (where satellite correlation decays)
-        gradient_factor = math.exp(-((depth - z_th) ** 2) / (2 * (40.0 ** 2)))
+        # Multiply instead of ** 2 so an extreme ssh_offset cannot raise OverflowError.
+        dz_th = depth - z_th
+        gradient_factor = math.exp(-(dz_th * dz_th) / (2 * 3200.0))
         depth_decay_factor = math.log10(max(depth, 1) + 10) / 3.0
         sigma = 0.25 + 0.55 * gradient_factor + 0.45 * depth_decay_factor
         uncertainty = round(float(sigma), 2)
@@ -210,7 +254,7 @@ def get_satellite_data(region: str = Query("arabian_sea", description="Region ke
     }
 
 
-@app.get("/api/reconstruction")
+@app.get("/api/reconstruction", dependencies=[Depends(reject_non_finite_params)])
 def get_reconstruction(
     region: str = Query("arabian_sea"),
     sst_offset: float = Query(0.0),
@@ -464,6 +508,17 @@ class ChatRequest(BaseModel):
     region: str = "arabian_sea"
     selected_depth: int = 50
 
+    @field_validator("selected_depth")
+    @classmethod
+    def _depth_on_grid(cls, v: int) -> int:
+        # Off-grid depths used to raise ValueError from STANDARD_DEPTHS.index().
+        if v not in STANDARD_DEPTHS:
+            raise ValueError(
+                f"selected_depth must be one of the {len(STANDARD_DEPTHS)} standard depths: "
+                f"{STANDARD_DEPTHS}"
+            )
+        return v
+
 @app.post("/api/analyst/chat")
 def ocean_analyst_chat(req: ChatRequest):
     """
@@ -507,10 +562,12 @@ def ocean_analyst_chat(req: ChatRequest):
             f"[Citations: NOAA OISST v2.1; WOA 2018 0.25° climatology]"
         )
     else:
+        profile, uncertainties, _, _ = compute_physical_profile(req.region)
+        idx = STANDARD_DEPTHS.index(req.selected_depth)
         response = (
             f"Analyzing telemetry for {reg['name']} at selected depth {req.selected_depth}m: "
-            f"Reconstructed temperature is {compute_physical_profile(req.region)[0][STANDARD_DEPTHS.index(req.selected_depth)]['temperature']}°C "
-            f"(uncertainty ±{compute_physical_profile(req.region)[1][STANDARD_DEPTHS.index(req.selected_depth)]['uncertainty']}°C, model confidence 86%). "
+            f"Reconstructed temperature is {profile[idx]['temperature']}°C "
+            f"(uncertainty ±{uncertainties[idx]['uncertainty']}°C, model confidence 86%). "
             f"Surface drivers: SST {reg['surface_sst']}°C, SSS {reg['surface_sss']} PSU, SSH +{reg['surface_ssh']}m, Wind {reg['wind_speed']} m/s. "
             f"This interpretation is strictly derived from the multi-sensor satellite observation vector and depth decoder latent state. "
             f"[Citations: Copernicus CMEMS; NASA PO.DAAC; ARGO Float {reg['argo_float_id']}]"
@@ -756,7 +813,7 @@ def get_explainable_ai(
     }
 
 
-@app.get("/api/advanced/missing-recovery")
+@app.get("/api/advanced/missing-recovery", dependencies=[Depends(reject_non_finite_params)])
 def get_missing_data_recovery(
     region: str = Query("arabian_sea"),
     missing_rate: float = Query(0.18, description="Simulated missing pixel fraction: 0.05 to 0.40")
@@ -846,7 +903,7 @@ def get_missing_data_recovery(
     }
 
 
-@app.get("/api/advanced/physics-hybrid")
+@app.get("/api/advanced/physics-hybrid", dependencies=[Depends(reject_non_finite_params)])
 def get_physics_informed_model(
     region: str = Query("arabian_sea"),
     lambda_physics: float = Query(0.25),

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   Fish, 
   Waves, 
@@ -39,6 +39,11 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
 }) => {
   // Component State
   const [selectedRegion, setSelectedRegion] = useState<string>(initialRegion);
+  // initialRegion is only read as the useState initialiser, so a region change
+  // from the Navbar left every figure in this panel showing the previous region.
+  useEffect(() => {
+    setSelectedRegion(initialRegion);
+  }, [initialRegion]);
   const [forecastPeriod, setForecastPeriod] = useState<ForecastPeriod>('48h');
   const [scenarioOffset, setScenarioOffset] = useState<number | null>(null); // null = natural prediction
   const [activeSpeciesFilter, setActiveSpeciesFilter] = useState<'all' | 'sessile' | 'mobile' | 'stressed'>('all');
@@ -73,15 +78,15 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
     switch (status) {
       case 'STAY':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-[#DCEFEA] text-[#2A8C82] border border-[#BCE3DA]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#2A8C82]" />
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-[#DCEFEA] text-[#009FE3] border border-[#BCE3DA]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#009FE3]" />
             Stable
           </span>
         );
       case 'SHIFT':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-[#D8E7EC] text-[#176B87] border border-[#BFD9E2]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#176B87]" />
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-medium bg-[#D8E7EC] text-[#009FE3] border border-[#BFD9E2]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#009FE3]" />
             Potential range shift
           </span>
         );
@@ -109,7 +114,7 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
       case 'May experience stress':
         return <span className="text-[#D99A3D] font-medium">Mild stress</span>;
       case 'May shift habitat':
-        return <span className="text-[#176B87] font-medium">Potential range shift</span>;
+        return <span className="text-[#009FE3] font-medium">Potential range shift</span>;
       case 'High biological stress':
         return <span className="text-[#C85C4B] font-medium">High thermal stress</span>;
       case 'Severe long-term risk':
@@ -124,13 +129,13 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-4 border-b border-[#E2ECEE]">
           <div>
             <div className="flex items-center gap-2">
-              <span className="p-1.5 rounded bg-[#DCEFEA] text-[#176B87]">
+              <span className="p-1.5 rounded bg-[#DCEFEA] text-[#009FE3]">
                 <Fish className="w-4 h-4" />
               </span>
-              <h2 className="text-lg font-semibold text-[#123B4A]">
+              <h2 className="text-lg font-semibold text-[#071B33]">
                 Marine temperature impact
               </h2>
-              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#F4F7F6] text-[#62757C] border border-[#D5E0E2]">
+              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#F4F9FC] text-[#62757C] border border-[#D5E0E2]">
                 Ecosystem response
               </span>
             </div>
@@ -142,15 +147,15 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
           {/* Region & Forecast Period Controls */}
           <div className="flex flex-wrap items-center gap-2.5">
             {/* Region Selector */}
-            <div className="flex items-center gap-1.5 bg-[#F4F7F6] border border-[#D5E0E2] rounded-md px-2.5 py-1 text-xs">
+            <div className="flex items-center gap-1.5 bg-[#F4F9FC] border border-[#D5E0E2] rounded-md px-2.5 py-1 text-xs">
               <span className="text-[#62757C]">Region:</span>
               <select
                 value={selectedRegion}
                 onChange={(e) => setSelectedRegion(e.target.value)}
-                className="bg-transparent text-[#17313B] font-medium focus:outline-none cursor-pointer"
+                className="bg-transparent text-[#071B33] font-medium focus:outline-none cursor-pointer"
               >
                 {Object.entries(REGIONAL_BASELINES).map(([k, v]) => (
-                  <option key={k} value={k} className="bg-white text-[#17313B]">
+                  <option key={k} value={k} className="bg-white text-[#071B33]">
                     {v.name}
                   </option>
                 ))}
@@ -158,15 +163,15 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
             </div>
 
             {/* Forecast Horizon Selector */}
-            <div className="flex items-center bg-[#F4F7F6] border border-[#D5E0E2] rounded-md p-0.5 text-xs">
+            <div className="flex items-center bg-[#F4F9FC] border border-[#D5E0E2] rounded-md p-0.5 text-xs">
               {(['24h', '48h', '7d'] as ForecastPeriod[]).map((period) => (
                 <button
                   key={period}
                   onClick={() => setForecastPeriod(period)}
                   className={`px-2.5 py-1 rounded transition ${
                     forecastPeriod === period
-                      ? 'bg-[#176B87] text-white font-medium shadow-xs'
-                      : 'text-[#62757C] hover:text-[#17313B]'
+                      ? 'bg-[#009FE3] text-white font-medium shadow-xs'
+                      : 'text-[#62757C] hover:text-[#071B33]'
                   }`}
                 >
                   {period === '24h' ? '24 Hours' : period === '48h' ? '48 Hours' : '7 Days'}
@@ -178,45 +183,45 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
 
         {/* Real-Time Temperature & Anomaly Metric Ribbon */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-4">
-          <div className="bg-[#F4F7F6] p-3 rounded-md border border-[#D5E0E2]">
+          <div className="bg-[#F4F9FC] p-3 rounded-md border border-[#D5E0E2]">
             <span className="text-[11px] text-[#62757C] block">Normal baseline</span>
-            <div className="text-xl font-bold text-[#123B4A] font-mono mt-0.5">
+            <div className="text-xl font-bold text-[#071B33] font-mono mt-0.5">
               {impactData.baselineTemp.toFixed(1)} °C
             </div>
             <span className="text-[10px] text-[#62757C]">1991–2020 climatology</span>
           </div>
 
-          <div className="bg-[#F4F7F6] p-3 rounded-md border border-[#D5E0E2]">
+          <div className="bg-[#F4F9FC] p-3 rounded-md border border-[#D5E0E2]">
             <span className="text-[11px] text-[#62757C] block">Current temperature</span>
-            <div className="text-xl font-bold text-[#176B87] font-mono mt-0.5">
+            <div className="text-xl font-bold text-[#009FE3] font-mono mt-0.5">
               {impactData.currentTemp.toFixed(1)} °C
             </div>
             <span className="text-[10px] text-[#62757C]">Sentinel-3 observation</span>
           </div>
 
-          <div className="bg-[#F4F7F6] p-3 rounded-md border border-[#D5E0E2]">
+          <div className="bg-[#F4F9FC] p-3 rounded-md border border-[#D5E0E2]">
             <span className="text-[11px] text-[#62757C] block">Predicted temperature</span>
-            <div className="text-xl font-bold text-[#123B4A] font-mono mt-0.5">
+            <div className="text-xl font-bold text-[#071B33] font-mono mt-0.5">
               {impactData.predictedTemp.toFixed(1)} °C
             </div>
             <span className="text-[10px] text-[#62757C]">Horizon: {impactData.forecastPeriod}</span>
           </div>
 
-          <div className="bg-[#F4F7F6] p-3 rounded-md border border-[#D5E0E2]">
+          <div className="bg-[#F4F9FC] p-3 rounded-md border border-[#D5E0E2]">
             <span className="text-[11px] text-[#62757C] block">Temperature anomaly</span>
-            <div className={`text-xl font-bold font-mono mt-0.5 ${impactData.temperatureAnomaly > 0 ? 'text-[#D99A3D]' : 'text-[#176B87]'}`}>
+            <div className={`text-xl font-bold font-mono mt-0.5 ${impactData.temperatureAnomaly > 0 ? 'text-[#D99A3D]' : 'text-[#009FE3]'}`}>
               {impactData.temperatureAnomaly > 0 ? `+${impactData.temperatureAnomaly.toFixed(1)}` : impactData.temperatureAnomaly.toFixed(1)} °C
             </div>
             <span className="text-[10px] text-[#62757C]">T_predicted − T_baseline</span>
           </div>
 
-          <div className="bg-[#F4F7F6] p-3 rounded-md border border-[#D5E0E2]">
+          <div className="bg-[#F4F9FC] p-3 rounded-md border border-[#D5E0E2]">
             <span className="text-[11px] text-[#62757C] block">Potential thermal stress</span>
             <div className="mt-1">
               <span className={`inline-block px-2 py-0.5 rounded text-[11px] font-medium ${
                 impactData.temperatureAnomaly > 2.0 
                   ? 'bg-[#FFF3D6] text-[#D99A3D] border border-[#FDE3A2]' 
-                  : 'bg-[#DCEFEA] text-[#2A8C82] border border-[#BCE3DA]'
+                  : 'bg-[#DCEFEA] text-[#009FE3] border border-[#BCE3DA]'
               }`}>
                 {impactData.temperatureAnomaly > 2.0 ? 'Elevated' : 'Moderate'}
               </span>
@@ -224,9 +229,9 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
             <span className="text-[10px] text-[#62757C] mt-1 block">Ecosystem indicator</span>
           </div>
 
-          <div className="bg-[#F4F7F6] p-3 rounded-md border border-[#D5E0E2]">
+          <div className="bg-[#F4F9FC] p-3 rounded-md border border-[#D5E0E2]">
             <span className="text-[11px] text-[#62757C] block">Affected depth</span>
-            <div className="text-xl font-bold text-[#123B4A] font-mono mt-0.5">
+            <div className="text-xl font-bold text-[#071B33] font-mono mt-0.5">
               20–75 m
             </div>
             <span className="text-[10px] text-[#62757C]">Upper mixed & thermocline</span>
@@ -234,8 +239,8 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
         </div>
 
         {/* Diagnostic Summary */}
-        <div className="mt-3.5 p-3 bg-[#F4F7F6] border border-[#D5E0E2] rounded-md text-xs text-[#17313B] leading-relaxed">
-          <span className="font-semibold text-[#123B4A]">Analysis summary: </span>
+        <div className="mt-3.5 p-3 bg-[#F4F9FC] border border-[#D5E0E2] rounded-md text-xs text-[#071B33] leading-relaxed">
+          <span className="font-semibold text-[#071B33]">Analysis summary: </span>
           {impactData.summaryStatement}
         </div>
       </div>
@@ -244,8 +249,8 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
       <div className="bg-white border border-[#D5E0E2] rounded-lg p-5 shadow-sm space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-[#E2ECEE]">
           <div>
-            <h3 className="text-sm font-semibold text-[#123B4A] flex items-center gap-2">
-              <Fish className="w-4 h-4 text-[#176B87]" />
+            <h3 className="text-sm font-semibold text-[#071B33] flex items-center gap-2">
+              <Fish className="w-4 h-4 text-[#009FE3]" />
               Marine species response matrix
             </h3>
             <p className="text-xs text-[#62757C] mt-0.5">
@@ -254,7 +259,7 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex items-center gap-1 bg-[#F4F7F6] p-1 rounded-md border border-[#D5E0E2] text-xs">
+          <div className="flex items-center gap-1 bg-[#F4F9FC] p-1 rounded-md border border-[#D5E0E2] text-xs">
             {[
               { id: 'all', label: 'All species' },
               { id: 'sessile', label: 'Sessile' },
@@ -266,8 +271,8 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
                 onClick={() => setActiveSpeciesFilter(f.id as any)}
                 className={`px-2.5 py-1 rounded transition ${
                   activeSpeciesFilter === f.id
-                    ? 'bg-white text-[#123B4A] font-medium shadow-xs border border-[#D5E0E2]'
-                    : 'text-[#62757C] hover:text-[#17313B]'
+                    ? 'bg-white text-[#071B33] font-medium shadow-xs border border-[#D5E0E2]'
+                    : 'text-[#62757C] hover:text-[#071B33]'
                 }`}
               >
                 {f.label}
@@ -279,7 +284,7 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
         {/* Species Table */}
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#F4F7F6] text-[#62757C] uppercase text-[10px] border-b border-[#D5E0E2]">
+            <thead className="bg-[#F4F9FC] text-[#62757C] uppercase text-[10px] border-b border-[#D5E0E2]">
               <tr>
                 <th className="py-2.5 px-3 font-semibold">Species</th>
                 <th className="py-2.5 px-3 font-semibold">Thermal range</th>
@@ -289,14 +294,14 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
                 <th className="py-2.5 px-3 text-right font-semibold">Details</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E2ECEE] text-[#17313B]">
+            <tbody className="divide-y divide-[#E2ECEE] text-[#071B33]">
               {filteredSpecies.map((estimate) => {
                 const sp = estimate.species;
                 return (
                   <tr key={sp.id} className="hover:bg-[#F8FAFA] transition">
                     {/* Species */}
                     <td className="py-3 px-3">
-                      <div className="font-semibold text-[#123B4A]">
+                      <div className="font-semibold text-[#071B33]">
                         {sp.name}
                       </div>
                       <div className="text-[11px] text-[#62757C] mt-0.5">
@@ -307,13 +312,13 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
                     {/* Thermal Range */}
                     <td className="py-3 px-3 font-mono text-[11px] text-[#62757C]">
                       {sp.baselineTempRange.min}°C – {sp.baselineTempRange.max}°C
-                      <span className="block text-[10px] text-[#176B87]">
+                      <span className="block text-[10px] text-[#009FE3]">
                         Optimal: {sp.baselineTempRange.optimal}°C
                       </span>
                     </td>
 
                     {/* Current Temperature */}
-                    <td className="py-3 px-3 font-mono text-[11px] font-semibold text-[#17313B]">
+                    <td className="py-3 px-3 font-mono text-[11px] font-semibold text-[#071B33]">
                       {impactData.currentTemp.toFixed(1)} °C
                       <span className="block text-[10px] font-normal text-[#62757C]">
                         Predicted: {impactData.predictedTemp.toFixed(1)} °C
@@ -340,7 +345,7 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
                     <td className="py-3 px-3 text-right">
                       <button
                         onClick={() => setActiveWhyModal(estimate)}
-                        className="px-2.5 py-1 rounded bg-[#F4F7F6] hover:bg-[#E8F0F2] text-[#176B87] text-[11px] border border-[#D5E0E2] transition cursor-pointer"
+                        className="px-2.5 py-1 rounded bg-[#F4F9FC] hover:bg-[#E8F0F2] text-[#009FE3] text-[11px] border border-[#D5E0E2] transition cursor-pointer"
                       >
                         Explain
                       </button>
@@ -357,8 +362,8 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
       <div className="bg-white border border-[#D5E0E2] rounded-lg p-5 shadow-sm space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-3 border-b border-[#E2ECEE]">
           <div>
-            <h3 className="text-sm font-semibold text-[#123B4A] flex items-center gap-2">
-              <Activity className="w-4 h-4 text-[#176B87]" />
+            <h3 className="text-sm font-semibold text-[#071B33] flex items-center gap-2">
+              <Activity className="w-4 h-4 text-[#009FE3]" />
               Water temperature observation & forecast
             </h3>
             <p className="text-xs text-[#62757C] mt-0.5">
@@ -370,8 +375,8 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
             <span className="flex items-center gap-1.5">
               <span className="w-3 h-0.5 bg-[#62757C] border-b border-dashed" /> Baseline ({impactData.baselineTemp}°C)
             </span>
-            <span className="flex items-center gap-1.5 text-[#2A8C82] font-medium">
-              <span className="w-3 h-0.5 bg-[#2A8C82]" /> Observed
+            <span className="flex items-center gap-1.5 text-[#009FE3] font-medium">
+              <span className="w-3 h-0.5 bg-[#009FE3]" /> Observed
             </span>
             <span className="flex items-center gap-1.5 text-[#D99A3D] font-medium">
               <span className="w-3 h-0.5 bg-[#D99A3D]" /> Forecast
@@ -423,14 +428,14 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
                   <path d={`M ${basePoints}`} fill="none" stroke="#62757C" strokeWidth="1.2" strokeDasharray="3,3" />
 
                   {/* Observed line (teal) */}
-                  <path d={`M ${obsPts}`} fill="none" stroke="#2A8C82" strokeWidth="2.5" />
+                  <path d={`M ${obsPts}`} fill="none" stroke="#009FE3" strokeWidth="2.5" />
 
                   {/* Predicted line (amber) */}
                   <path d={`M ${predPts}`} fill="none" stroke="#D99A3D" strokeWidth="2.5" strokeDasharray="4,3" />
 
                   {/* Vertical separator for "Current Observation" */}
-                  <line x1={xCoord(7)} y1="15" x2={xCoord(7)} y2="180" stroke="#176B87" strokeWidth="1" strokeDasharray="2,2" />
-                  <text x={xCoord(7)} y="12" fill="#176B87" fontSize="8" fontFamily="Inter" textAnchor="middle" fontWeight="bold">CURRENT</text>
+                  <line x1={xCoord(7)} y1="15" x2={xCoord(7)} y2="180" stroke="#009FE3" strokeWidth="1" strokeDasharray="2,2" />
+                  <text x={xCoord(7)} y="12" fill="#009FE3" fontSize="8" fontFamily="Inter" textAnchor="middle" fontWeight="bold">CURRENT</text>
 
                   {/* Interactive Point Reticles */}
                   {pts.map((p, i) => {
@@ -445,7 +450,7 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
                           cx={x}
                           cy={y}
                           r={isHovered ? 5 : 3}
-                          fill={i <= 7 ? '#2A8C82' : '#D99A3D'}
+                          fill={i <= 7 ? '#009FE3' : '#D99A3D'}
                           stroke="#FFFFFF"
                           strokeWidth="1.5"
                         />
@@ -462,10 +467,10 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
 
           {/* Interactive Hover HUD Display */}
           {hoveredTimeseriesPoint && (
-            <div className="absolute top-4 right-4 bg-white border border-[#D5E0E2] rounded-md p-2.5 text-xs shadow-md text-[#17313B] pointer-events-none">
-              <div className="font-semibold text-[#123B4A] flex items-center justify-between gap-3">
+            <div className="absolute top-4 right-4 bg-white border border-[#D5E0E2] rounded-md p-2.5 text-xs shadow-md text-[#071B33] pointer-events-none">
+              <div className="font-semibold text-[#071B33] flex items-center justify-between gap-3">
                 <span>{hoveredTimeseriesPoint.fullDate} ({hoveredTimeseriesPoint.time})</span>
-                <span className="text-[#176B87] font-bold font-mono">
+                <span className="text-[#009FE3] font-bold font-mono">
                   {(hoveredTimeseriesPoint.observed || hoveredTimeseriesPoint.predicted).toFixed(1)} °C
                 </span>
               </div>
@@ -484,8 +489,8 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
       <div className="bg-white border border-[#D5E0E2] rounded-lg p-5 shadow-sm space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-[#E2ECEE]">
           <div>
-            <h3 className="text-sm font-semibold text-[#123B4A] flex items-center gap-2">
-              <Sliders className="w-4 h-4 text-[#176B87]" />
+            <h3 className="text-sm font-semibold text-[#071B33] flex items-center gap-2">
+              <Sliders className="w-4 h-4 text-[#009FE3]" />
               Scenario sensitivity analysis
             </h3>
             <p className="text-xs text-[#62757C] mt-0.5">
@@ -494,11 +499,11 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
           </div>
 
           {/* Scenario Buttons */}
-          <div className="flex items-center gap-1.5 bg-[#F4F7F6] p-1 rounded-md border border-[#D5E0E2] text-xs">
+          <div className="flex items-center gap-1.5 bg-[#F4F9FC] p-1 rounded-md border border-[#D5E0E2] text-xs">
             <button
               onClick={() => setScenarioOffset(null)}
               className={`px-2.5 py-1 rounded transition ${
-                scenarioOffset === null ? 'bg-[#176B87] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#17313B]'
+                scenarioOffset === null ? 'bg-[#009FE3] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#071B33]'
               }`}
             >
               Natural (+{REGIONAL_BASELINES[selectedRegion]?.mediumTermForecastDelta.toFixed(1)}°C)
@@ -506,7 +511,7 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
             <button
               onClick={() => setScenarioOffset(1.0)}
               className={`px-2.5 py-1 rounded transition ${
-                scenarioOffset === 1.0 ? 'bg-[#2A8C82] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#17313B]'
+                scenarioOffset === 1.0 ? 'bg-[#009FE3] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#071B33]'
               }`}
             >
               +1.0°C
@@ -514,7 +519,7 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
             <button
               onClick={() => setScenarioOffset(2.0)}
               className={`px-2.5 py-1 rounded transition ${
-                scenarioOffset === 2.0 ? 'bg-[#D99A3D] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#17313B]'
+                scenarioOffset === 2.0 ? 'bg-[#D99A3D] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#071B33]'
               }`}
             >
               +2.0°C
@@ -522,7 +527,7 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
             <button
               onClick={() => setScenarioOffset(3.0)}
               className={`px-2.5 py-1 rounded transition ${
-                scenarioOffset === 3.0 ? 'bg-[#C85C4B] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#17313B]'
+                scenarioOffset === 3.0 ? 'bg-[#C85C4B] text-white font-medium shadow-xs' : 'text-[#62757C] hover:text-[#071B33]'
               }`}
             >
               +3.0°C
@@ -531,7 +536,7 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
         </div>
 
         {/* Custom Offset Slider */}
-        <div className="bg-[#F4F7F6] p-3 rounded-md border border-[#D5E0E2] flex items-center gap-4 text-xs">
+        <div className="bg-[#F4F9FC] p-3 rounded-md border border-[#D5E0E2] flex items-center gap-4 text-xs">
           <span className="text-[#62757C] whitespace-nowrap">Simulated anomaly offset:</span>
           <input
             type="range"
@@ -540,9 +545,9 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
             step="0.1"
             value={scenarioOffset !== null ? scenarioOffset : REGIONAL_BASELINES[selectedRegion]?.mediumTermForecastDelta || 3.0}
             onChange={(e) => setScenarioOffset(parseFloat(e.target.value))}
-            className="w-full h-1.5 bg-[#D5E0E2] rounded-lg appearance-none cursor-pointer accent-[#2A8C82]"
+            className="w-full h-1.5 bg-[#D5E0E2] rounded-lg appearance-none cursor-pointer accent-[#009FE3]"
           />
-          <span className="font-bold text-[#123B4A] font-mono w-16 text-right">
+          <span className="font-bold text-[#071B33] font-mono w-16 text-right">
             {(scenarioOffset !== null ? scenarioOffset : REGIONAL_BASELINES[selectedRegion]?.mediumTermForecastDelta || 3.0).toFixed(1)} °C
           </span>
         </div>
@@ -550,7 +555,7 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
         {/* Trophic Ecosystem Network */}
         <div className="mt-4 bg-[#F8FAFA] p-4 rounded-md border border-[#D5E0E2]">
           <div className="flex items-center justify-between text-xs text-[#62757C] mb-3 pb-2 border-b border-[#E2ECEE]">
-            <span className="font-medium text-[#123B4A]">
+            <span className="font-medium text-[#071B33]">
               Trophic levels & habitat coupling response (Scenario: {impactData.temperatureAnomaly > 0 ? `+${impactData.temperatureAnomaly.toFixed(1)}°C` : `${impactData.temperatureAnomaly.toFixed(1)}°C`})
             </span>
             <span className="text-[11px] text-[#62757C]">Ecological pressure cascade</span>
@@ -567,7 +572,7 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
                     <span className="text-[10px] text-[#62757C]">Trophic {node.trophicLevel}</span>
                     {getResponseBadge(node.status)}
                   </div>
-                  <h4 className="text-xs font-semibold text-[#123B4A] mt-1.5">{node.label}</h4>
+                  <h4 className="text-xs font-semibold text-[#071B33] mt-1.5">{node.label}</h4>
                 </div>
                 <div className="text-[10px] text-[#62757C] mt-2 pt-1 border-t border-[#E2ECEE]">
                   {node.stressLevel}
@@ -579,13 +584,13 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
       </div>
 
       {/* 5. Scientific Transparency & Prediction Disclaimer */}
-      <div className="p-4 rounded-lg bg-[#DCEFEA] border border-[#BCE3DA] text-xs text-[#123B4A] flex items-start gap-3">
-        <ShieldAlert className="w-5 h-5 text-[#2A8C82] shrink-0 mt-0.5" />
+      <div className="p-4 rounded-lg bg-[#DCEFEA] border border-[#BCE3DA] text-xs text-[#071B33] flex items-start gap-3">
+        <ShieldAlert className="w-5 h-5 text-[#009FE3] shrink-0 mt-0.5" />
         <div className="space-y-1">
-          <div className="font-semibold text-[#123B4A]">
+          <div className="font-semibold text-[#071B33]">
             Scientific context & interpretability
           </div>
-          <p className="leading-relaxed text-[#17313B]">
+          <p className="leading-relaxed text-[#071B33]">
             <strong>Temperature anomaly alone cannot establish species extinction.</strong> Marine organism responses depend on cumulative exposure duration, local acclimation capability, dissolved oxygen availability, primary productivity, ocean current advection, and bathymetric refugia. These outputs represent model-based empirical estimations calibrated against published marine physiological thresholds, designed to assist oceanographic research and ecological monitoring.
           </p>
         </div>
@@ -597,17 +602,17 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
           <div className="relative w-full max-w-xl bg-white border border-[#D5E0E2] rounded-lg p-6 shadow-xl text-xs space-y-4">
             <button
               onClick={() => setActiveWhyModal(null)}
-              className="absolute top-4 right-4 p-1 rounded-md text-[#62757C] hover:text-[#17313B] transition"
+              className="absolute top-4 right-4 p-1 rounded-md text-[#62757C] hover:text-[#071B33] transition"
             >
               <X className="w-4 h-4" />
             </button>
 
             <div className="flex items-center gap-2 pb-3 border-b border-[#E2ECEE]">
-              <span className="p-1.5 rounded bg-[#DCEFEA] text-[#176B87]">
+              <span className="p-1.5 rounded bg-[#DCEFEA] text-[#009FE3]">
                 <Info className="w-4 h-4" />
               </span>
               <div>
-                <h3 className="text-sm font-semibold text-[#123B4A]">
+                <h3 className="text-sm font-semibold text-[#071B33]">
                   Scientific basis: {activeWhyModal.species.name}
                 </h3>
                 <span className="text-[11px] text-[#62757C]">
@@ -616,27 +621,27 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
               </div>
             </div>
 
-            <div className="space-y-3 text-[#17313B] leading-relaxed">
-              <div className="p-3 bg-[#F4F7F6] rounded-md border border-[#D5E0E2]">
-                <span className="text-[11px] font-semibold text-[#123B4A] block mb-1">
+            <div className="space-y-3 text-[#071B33] leading-relaxed">
+              <div className="p-3 bg-[#F4F9FC] rounded-md border border-[#D5E0E2]">
+                <span className="text-[11px] font-semibold text-[#071B33] block mb-1">
                   Physiological rationale
                 </span>
                 <p>{activeWhyModal.whyExplanation}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-2 text-[11px]">
-                <div className="bg-[#F4F7F6] p-2.5 rounded-md border border-[#D5E0E2]">
+                <div className="bg-[#F4F9FC] p-2.5 rounded-md border border-[#D5E0E2]">
                   <span className="text-[#62757C] block text-[10px]">Optimal thermal range</span>
-                  <span className="text-[#123B4A] font-bold font-mono">{activeWhyModal.species.baselineTempRange.optimal} °C</span> (Max: {activeWhyModal.species.baselineTempRange.max} °C)
+                  <span className="text-[#071B33] font-bold font-mono">{activeWhyModal.species.baselineTempRange.optimal} °C</span> (Max: {activeWhyModal.species.baselineTempRange.max} °C)
                 </div>
-                <div className="bg-[#F4F7F6] p-2.5 rounded-md border border-[#D5E0E2]">
+                <div className="bg-[#F4F9FC] p-2.5 rounded-md border border-[#D5E0E2]">
                   <span className="text-[#62757C] block text-[10px]">Calibration status</span>
                   <span className="text-[#3D806C] font-bold">Empirical literature benchmark</span>
                 </div>
               </div>
 
-              <div className="bg-[#F4F7F6] p-3 rounded-md border border-[#D5E0E2] text-[11px] text-[#62757C]">
-                <span className="font-semibold text-[#123B4A] block mb-0.5">Data basis & references:</span>
+              <div className="bg-[#F4F9FC] p-3 rounded-md border border-[#D5E0E2] text-[11px] text-[#62757C]">
+                <span className="font-semibold text-[#071B33] block mb-0.5">Data basis & references:</span>
                 {activeWhyModal.dataBasis}
               </div>
             </div>
@@ -644,7 +649,7 @@ export const MarineTemperatureImpactPredictor: React.FC<MarineTemperatureImpactP
             <div className="pt-2 border-t border-[#E2ECEE] flex justify-end">
               <button
                 onClick={() => setActiveWhyModal(null)}
-                className="px-4 py-1.5 rounded-md bg-[#176B87] text-white font-medium text-xs hover:bg-[#123B4A] transition"
+                className="px-4 py-1.5 rounded-md bg-[#009FE3] text-white font-medium text-xs hover:bg-[#071B33] transition"
               >
                 Close
               </button>
